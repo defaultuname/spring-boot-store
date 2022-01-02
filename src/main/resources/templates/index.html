@@ -5,6 +5,39 @@
     <title>List</title>
 </head>
 <body>
+
+<!--<label>-->
+<!--        <select name="forma" onchange="location = this.value;">-->
+<!--            <option value="">Выберите категорию</option>-->
+<!--            <option th:each="category : ${categoryList}"-->
+<!--                    th:value="/category?id=${category.id}"-->
+<!--                    th:utext="${category.categoryName}">-->
+<!--    &lt;!&ndash;                th:href="@{/category?id=${category.id}}">&ndash;&gt;-->
+<!--            </option>-->
+<!--    &lt;!&ndash;                th:utext="${category.categoryName}"></option>&ndash;&gt;-->
+<!--        </select>-->
+<!--</label>-->
+<ul>
+    <li th:each="cat: ${categoryList}"><a th:href="@{/category(id=${cat.id})}" th:text="${cat.categoryName}"></a></li>
+</ul>
+
+<!--<table>-->
+<!--    <tr>-->
+<!--        <th>Имя</th>-->
+<!--        <th>Изображение</th>-->
+<!--        <th>Категория</th>-->
+<!--        <th>Цена</th>-->
+<!--        <th>Количество</th>-->
+<!--    </tr>-->
+<!--    <tr th:each="prod : ${catSort}">-->
+<!--        <td th:text="${prod.title}"></td>-->
+<!--        <td><img th:src="${prod.imageLocation}" height="200"/></td>-->
+<!--        <td th:text="${prod.category}"></td>-->
+<!--        <td th:text="${prod.price}"></td>-->
+<!--        <td th:text="${prod.quantity}"></td>-->
+<!--    </tr>-->
+<!--</table>-->
+
 <table>
     <tr>
         <th>Имя</th>
