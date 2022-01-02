@@ -28,6 +28,10 @@ public class CategoryService {
         return repository.findAll();
     }
 
+    public Category getCategoryByName(String name) {
+        return repository.findByCategoryName(name);
+    }
+
     public void updateCategory(long id, Category newCategory) {
         Category oldCategory = getCategoryById(id);
         if (oldCategory != null) {

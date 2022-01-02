@@ -39,6 +39,11 @@ public class Category {
         this.categoryName = categoryName;
     }
 
+    @Override
+    public String toString() {
+        return categoryName;
+    }
+
 //    public Set<Product> getProducts() {
 //        return products;
 //    }
