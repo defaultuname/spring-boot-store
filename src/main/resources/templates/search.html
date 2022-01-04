@@ -6,19 +6,6 @@
 </head>
 <body>
 
-<form th:action="@{/search}">
-    <label for="category">Категория</label>
-    <select id="category" name="category">
-        <option selected="selected"></option>
-        <option th:each="cat: ${categoryList}" th:utext="${cat.categoryName}"></option>
-    </select>
-
-    <input type="search" name="title" id="search">
-    <label for="search">Запрос</label>
-
-    <input type="submit" value="Поиск!">
-</form>
-
 <table>
     <tr>
         <th>Имя</th>
@@ -27,7 +14,7 @@
         <th>Цена</th>
         <th>Количество</th>
     </tr>
-    <tr th:each="prod : ${productList}">
+    <tr th:each="prod : ${productListSearched}">
         <td th:text="${prod.title}"></td>
         <td><img th:src="${prod.imageLocation}" height="200"/></td>
         <td th:text="${prod.category}"></td>
@@ -35,5 +22,7 @@
         <td th:text="${prod.quantity}"></td>
     </tr>
 </table>
+
+<a th:href="@{/index}">Домой</a>
 </body>
 </html>

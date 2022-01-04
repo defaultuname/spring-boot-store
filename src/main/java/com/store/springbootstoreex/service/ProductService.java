@@ -28,11 +28,19 @@ public class ProductService {
         return repository.findAll();
     }
 
-    public List<Product> getAllProductsByCategoryId(long id) {
+    public List<Product> getProductsByCategoryId(long id) {
         return repository.findAllByCategoryId(id);
     }
 
-    public List<Product> getAllProductsByCategoryName(String name) {
+    public List<Product> getProductsByTitle(String name) {
+        return repository.findAllByTitleContainsIgnoreCase(name);
+    }
+
+    public List<Product> getAllByCategoryAndTitle(String category, String title) {
+        return repository.findProductsByCategoryNameAndContainsTitle(category, title);
+    }
+
+    public List<Product> getProductsByCategoryName(String name) {
         return repository.findAllByCategory_CategoryName(name);
     }
 
