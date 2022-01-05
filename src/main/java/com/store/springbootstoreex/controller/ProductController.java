@@ -7,36 +7,53 @@ import com.store.springbootstoreex.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/products")
 public class ProductController {
-
-    private final ProductService productService;
     private final CategoryService categoryService;
+    private final ProductService productService;
 
     @Autowired
-    public ProductController(ProductService productService, CategoryService categoryService) {
-        this.productService = productService;
+    public ProductController(CategoryService categoryService, ProductService productService) {
         this.categoryService = categoryService;
+        this.productService = productService;
     }
 
-    @GetMapping({"/index", "", "/"})
-    public String homepage(Model model) {
-        List<Product> productList = productService.getAllProducts();
+    @GetMapping("/new")
+    public String createProduct(Model model) {
         List<Category> categoryList = categoryService.getAllCategories();
-        model.addAttribute("productList", productList);
         model.addAttribute("categoryList", categoryList);
-        return "index";
+        return "create";
     }
 
-    @GetMapping("/search")
-    public String homepageSearchByTitle(@RequestParam("title") String title, @RequestParam("category") String category, Model model) {
-        List<Product> productList = productService.getAllByCategoryAndTitle(category.trim(), title.trim());
-        model.addAttribute("productListSearched", productList);
-        return "search";
+    @PostMapping("/new")
+    public String createProduct(@ModelAttribute("product") Product product) {
+        productService.saveProduct(product);
+        return "redirect:/index";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editProduct(@PathVariable("id") int id, Model model) {
+        Product product = productService.getByIdProduct(id);
+        List<Category> categoryList = categoryService.getAllCategories();
+        model.addAttribute("categoryList", categoryList);
+        model.addAttribute("productForm", product);
+        return "edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String editProduct(@ModelAttribute("product") Product product) {
+        productService.saveProduct(product);
+        return "redirect:/index";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteProduct(@PathVariable("id") int id) {
+        productService.deleteProductById(id);
+        return "redirect:/index";
     }
 }

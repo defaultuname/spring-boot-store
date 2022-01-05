@@ -26,6 +26,8 @@
         <th>Категория</th>
         <th>Цена</th>
         <th>Количество</th>
+        <th>Edit</th>
+        <th>Delete</th>
     </tr>
     <tr th:each="prod : ${productList}">
         <td th:text="${prod.title}"></td>
@@ -33,6 +35,8 @@
         <td th:text="${prod.category}"></td>
         <td th:text="${prod.price}"></td>
         <td th:text="${prod.quantity}"></td>
+        <td><a th:href="@{/products/edit/{id}(id=${prod.id})}">Edit</a></td>
+        <td><a th:href="@{/products/delete/{id}(id=${prod.id})}">Delete</a></td>
     </tr>
 </table>
 </body>

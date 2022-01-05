@@ -87,6 +87,7 @@ public class Product {
         return "Product{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
+                ", imageLocation='" + imageLocation + '\'' +
                 ", category=" + category +
                 ", price=" + price +
                 ", quantity=" + quantity +

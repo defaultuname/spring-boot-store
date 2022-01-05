@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Creating</title>
+</head>
+<body>
+<form method="post">
+    <label for="title">Title: </label><br>
+    <input type="text" id="title" name="title" required><br>
+
+    <label for="imageLocation">Image Location: </label><br>
+    <input type="text" id="imageLocation" name="imageLocation"><br>
+
+    <label for="category">Категория: </label><br>
+    <select id="category" name="category">
+        <option th:each="cat: ${categoryList}" th:utext="${cat.categoryName}" th:value="${cat.id}"></option>
+    </select><br>
+
+    <label for="price">Price: </label><br>
+    <input type="number" id="price" name="price" min="0" step=".01" required><br>
+
+    <label for="quantity">Quantity: </label><br>
+    <input type="number" id="quantity" name="quantity" min="0" step="1" required><br>
+
+    <input type="submit" value="Add product">
+</form>
+</body>
+</html>
