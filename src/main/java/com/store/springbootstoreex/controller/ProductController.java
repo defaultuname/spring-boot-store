@@ -27,7 +27,7 @@ public class ProductController {
     public String createProduct(Model model) {
         List<Category> categoryList = categoryService.getAllCategories();
         model.addAttribute("categoryList", categoryList);
-        return "create";
+        return "createProd";
     }
 
     @PostMapping("/new")
@@ -42,7 +42,7 @@ public class ProductController {
         List<Category> categoryList = categoryService.getAllCategories();
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("productForm", product);
-        return "edit";
+        return "editProd";
     }
 
     @PostMapping("/edit/{id}")

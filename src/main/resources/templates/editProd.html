@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Editing</title>
@@ -24,7 +24,7 @@
     <label for="quantity">Quantity: </label><br>
     <input type="number" id="quantity" name="quantity" min="0" step="1" th:field="*{quantity}" required><br>
 
-    <input type="submit" value="Add product">
+    <input type="submit" value="Save">
 </form>
 </body>
 </html>
