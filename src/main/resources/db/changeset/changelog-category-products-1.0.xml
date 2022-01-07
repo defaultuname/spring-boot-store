@@ -45,8 +45,8 @@
         <addForeignKeyConstraint baseTableName="products"
                                  baseColumnNames="category_id"
                                  constraintName="fk_product_category"
-                                 onDelete="NO ACTION"
-                                 onUpdate="NO ACTION"
+                                 onDelete="SET NULL"
+                                 onUpdate="SET NULL"
                                  referencedTableName="category"
                                  referencedColumnNames="id"/>
     </changeSet>

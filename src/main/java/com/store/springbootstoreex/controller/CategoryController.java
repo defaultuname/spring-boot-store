@@ -25,7 +25,7 @@ public class CategoryController {
     @PostMapping("/new")
     public String createCategory(@ModelAttribute("category") Category category) {
         categoryService.saveCategory(category);
-        return "redirect:/index";
+        return "redirect:/admin";
     }
 
     @GetMapping("/edit/{id}")
@@ -38,13 +38,13 @@ public class CategoryController {
     @PostMapping("/edit/{id}")
     public String editCategory(@ModelAttribute("category") Category category) {
         categoryService.saveCategory(category);
-        return "redirect:/index";
+        return "redirect:/admin";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteCategory(@PathVariable("id") int id) {
         categoryService.deleteById(id);
-        return "redirect:/index";
+        return "redirect:/admin";
     }
 
 }

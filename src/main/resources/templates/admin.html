@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin panel</title>
+</head>
+<body>
+<h2>Admin page</h2>
+<h3>Category management</h3>
+<button role="button" type="button" onclick="window.location.href='/category/new'">New category</button>
+<table>
+    <tr>
+        <th>Category name</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <tr th:each="cat : ${categoryList}">
+        <td th:text="${cat.categoryName}"></td>
+        <td><a th:href="@{/category/edit/{id}(id=${cat.id})}">Edit</a></td>
+        <td><a th:href="@{/category/delete/{id}(id=${cat.id})}">Delete</a></td>
+    </tr>
+</table>
+<br>
+<h3>Product management</h3>
+<button role="button" type="button" onclick="window.location.href='/products/new'">New product</button>
+<table>
+    <tr>
+        <th>Имя</th>
+        <th>Изображение</th>
+        <th>Категория</th>
+        <th>Цена</th>
+        <th>Количество</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <tr th:each="prod : ${productList}">
+        <td th:text="${prod.title}"></td>
+        <td><img th:src="${prod.imageLocation}" height="200"/></td>
+        <td th:text="${prod.category}"></td>
+        <td th:text="${prod.price}"></td>
+        <td th:text="${prod.quantity}"></td>
+        <td><a th:href="@{/products/edit/{id}(id=${prod.id})}">Edit</a></td>
+        <td><a th:href="@{/products/delete/{id}(id=${prod.id})}">Delete</a></td>
+    </tr>
+</table>
+<br>
+<button role="button" type="button" onclick="window.location.href='index'">Go to home page</button>
+</body>
+</html>

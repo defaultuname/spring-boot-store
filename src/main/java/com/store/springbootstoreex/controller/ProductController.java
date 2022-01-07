@@ -33,7 +33,7 @@ public class ProductController {
     @PostMapping("/new")
     public String createProduct(@ModelAttribute("product") Product product) {
         productService.saveProduct(product);
-        return "redirect:/index";
+        return "redirect:/admin";
     }
 
     @GetMapping("/edit/{id}")
@@ -48,12 +48,12 @@ public class ProductController {
     @PostMapping("/edit/{id}")
     public String editProduct(@ModelAttribute("product") Product product) {
         productService.saveProduct(product);
-        return "redirect:/index";
+        return "redirect:/admin";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable("id") int id) {
         productService.deleteProductById(id);
-        return "redirect:/index";
+        return "redirect:/admin";
     }
 }
