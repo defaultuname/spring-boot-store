@@ -1,11 +1,13 @@
 package com.store.springbootstoreex.service;
 
 import com.store.springbootstoreex.domain.Category;
+import com.store.springbootstoreex.exception.CategoryNotFoundException;
 import com.store.springbootstoreex.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryService {
@@ -20,25 +22,26 @@ public class CategoryService {
         repository.save(category);
     }
 
-    public Category getCategoryById(long id) {
-        return repository.getById(id);
+    public Category getCategoryById(Long id) {
+        Optional<Category> optionalCategory = repository.findById(id);
+        Category category;
+
+        if (optionalCategory.isPresent()) {
+            category = optionalCategory.get();
+        } else {
+            throw new CategoryNotFoundException(id);
+        }
+
+        return category;
     }
 
     public List<Category> getAllCategories() {
         return repository.findAll();
     }
 
-    public Category getCategoryByName(String name) {
-        return repository.findByCategoryName(name);
-    }
-
-    public void updateCategory(long id, Category newCategory) {
-        Category oldCategory = getCategoryById(id);
-        if (oldCategory != null) {
-            oldCategory.setCategoryName(newCategory.getCategoryName());
-            saveCategory(oldCategory);
-        }
-    }
+//    public Optional<Category> getCategoryByName(String name) {
+//        return repository.findByCategoryName(name);
+//    }
 
     public void deleteById(long id) {
         repository.deleteById(id);
