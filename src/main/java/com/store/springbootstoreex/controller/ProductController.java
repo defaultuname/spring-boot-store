@@ -40,7 +40,7 @@ public class ProductController {
 
     @GetMapping("/edit/{id}")
     public String editProduct(@PathVariable("id") Long id, Model model) {
-        Product product = productService.getByIdProduct(id);
+        Product product = productService.getProductById(id);
         List<Category> categoryList = categoryService.getAllCategories();
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("productForm", product);

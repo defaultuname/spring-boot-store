@@ -22,7 +22,7 @@ public class ProductService {
         repository.save(product);
     }
 
-    public Product getByIdProduct(Long id) {
+    public Product getProductById(Long id) {
         Optional<Product> optionalProduct = repository.findById(id);
         Product product;
 
