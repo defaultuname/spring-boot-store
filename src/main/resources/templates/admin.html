@@ -44,6 +44,29 @@
     </tr>
 </table>
 <br>
+<h3>User management</h3>
+<button role="button" type="button" onclick="window.location.href='/users/new'">New user</button>
+<table>
+    <tr>
+        <th>Email</th>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Роль</th>
+        <th>Статус</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <tr th:each="user : ${userList}">
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.firstname}"></td>
+        <td th:text="${user.lastname}"></td>
+        <td th:text="${user.role}"></td>
+        <td th:text="${user.status}"></td>
+        <td><a th:href="@{/users/edit/{id}(id=${user.id})}">Edit</a></td>
+        <td><a th:href="@{/users/delete/{id}(id=${user.id})}">Delete</a></td>
+    </tr>
+</table>
+<br>
 <button role="button" type="button" onclick="window.location.href='index'">Go to home page</button>
 </body>
 </html>

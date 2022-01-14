@@ -1,7 +1,5 @@
 package com.store.springbootstoreex.service;
 
-import com.store.springbootstoreex.domain.Role;
-import com.store.springbootstoreex.domain.Status;
 import com.store.springbootstoreex.domain.User;
 import com.store.springbootstoreex.exception.UserAlreadyExistsException;
 import com.store.springbootstoreex.exception.UserNotFoundException;
@@ -22,7 +20,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User findUserById(Long id) {
+    public User getUserById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 
@@ -36,12 +34,14 @@ public class UserService {
         });
 
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        user.setRole(Role.USER);
-        user.setStatus(Status.ACTIVE);
         userRepository.save(user);
     }
 
-    public void deleteUser(Long id) {
+    public void editUser(User user) {
+        userRepository.save(user);
+    }
+
+    public void deleteUserById(Long id) {
         userRepository.deleteById(id);
     }
 }
