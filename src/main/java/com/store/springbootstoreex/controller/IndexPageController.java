@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@PreAuthorize("hasAuthority('user:read')")
+@PreAuthorize("hasAuthority('USER')")
 public class IndexPageController {
 
     private final ProductService productService;

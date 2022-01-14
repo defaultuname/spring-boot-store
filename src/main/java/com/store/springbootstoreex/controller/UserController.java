@@ -14,7 +14,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/users")
-@PreAuthorize("hasAuthority('user:write')")
+@PreAuthorize("hasAuthority('ADMIN')")
 public class UserController {
 
     private final UserService userService;

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/category")
-@PreAuthorize("hasAuthority('user:write')")
+@PreAuthorize("hasAuthority('ADMIN')")
 public class CategoryController {
     private final CategoryService categoryService;
 

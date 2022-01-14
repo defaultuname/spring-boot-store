@@ -1,6 +1,5 @@
 package com.store.springbootstoreex.config;
 
-import com.store.springbootstoreex.domain.Permission;
 import com.store.springbootstoreex.domain.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -34,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/register").permitAll()
-                .antMatchers("/h2-console/**").hasAuthority(Permission.WRITE.getPermission())
+                .antMatchers("/h2-console/**").hasAuthority(Role.ADMIN.name())
                 .anyRequest().authenticated()
                 .and()
                 .headers().frameOptions().sameOrigin()

@@ -14,7 +14,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/products")
-@PreAuthorize("hasAuthority('user:write')")
+@PreAuthorize("hasAuthority('ADMIN')")
 public class ProductController {
     private final CategoryService categoryService;
     private final ProductService productService;
