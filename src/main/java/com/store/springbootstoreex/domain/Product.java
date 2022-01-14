@@ -10,6 +10,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "title", nullable = false)
     private String title;
 
     @Column(name = "image_location")
@@ -19,9 +20,11 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @Column(name = "price", nullable = false)
     private BigDecimal price;
 
-    private int quantity;
+    @Column(name = "quantity")
+    private int quantity = 0;
 
     public Product() {
     }

@@ -9,21 +9,25 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false, length = 100)
     private String firstname;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false, length = 100)
     private String lastname;
 
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Enumerated(value = EnumType.STRING)
-    private Role role;
+    @Column(name = "role", nullable = false, length = 25)
+    private Role role = Role.USER;
 
     @Enumerated(value = EnumType.STRING)
-    private Status status;
+    @Column(name = "status", nullable = false, length = 25)
+    private Status status = Status.ACTIVE;
 
     public User() {
     }

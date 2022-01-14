@@ -5,12 +5,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "category")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "category_name")
+    @Column(name = "category_name", nullable = false, length = 32)
     private String categoryName;
 
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
