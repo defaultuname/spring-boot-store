@@ -3,30 +3,31 @@ package com.store.springbootstoreex.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "USERS")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "EMAIL", nullable = false)
     private String email;
 
-    @Column(name = "first_name", nullable = false, length = 100)
+    @Column(name = "FIRST_NAME", nullable = false, length = 100)
     private String firstname;
 
-    @Column(name = "last_name", nullable = false, length = 100)
+    @Column(name = "LAST_NAME", nullable = false, length = 100)
     private String lastname;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "PASSWORD", nullable = false)
     private String password;
 
     @Enumerated(value = EnumType.STRING)
-    @Column(name = "role", nullable = false, length = 25)
+    @Column(name = "ROLE", nullable = false, length = 25)
     private Role role = Role.USER;
 
     @Enumerated(value = EnumType.STRING)
-    @Column(name = "status", nullable = false, length = 25)
+    @Column(name = "STATUS", nullable = false, length = 25)
     private Status status = Status.ACTIVE;
 
     public User() {

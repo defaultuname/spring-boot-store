@@ -2,29 +2,38 @@ package com.store.springbootstoreex.domain;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name = "title", nullable = false)
+    @Column(name = "TITLE", nullable = false)
     private String title;
 
-    @Column(name = "image_location")
+    @Column(name = "IMAGE_LOCATION")
     private String imageLocation;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID")
     private Category category;
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "PRICE", nullable = false)
     private BigDecimal price;
 
-    @Column(name = "quantity")
+    @Column(name = "QUANTITY")
     private int quantity = 0;
+
+    @ManyToMany
+    @JoinTable(name = "PRODUCT_CART",
+    joinColumns = @JoinColumn(name = "PRODUCT_ID"),
+    inverseJoinColumns = @JoinColumn(name = "CART_ID"))
+    private Set<Cart> carts;
 
     public Product() {
     }
@@ -35,6 +44,14 @@ public class Product {
         this.category = category;
         this.price = price;
         this.quantity = quantity;
+    }
+
+    public Set<Cart> getCarts() {
+        return carts;
+    }
+
+    public void setCarts(Set<Cart> carts) {
+        this.carts = carts;
     }
 
     public String getImageLocation() {

@@ -19,7 +19,6 @@ public enum Role {
     }
 
     public Set<SimpleGrantedAuthority> getGrantedAuthorities() {
-//        return Stream.of(Role.values()).map(role -> new SimpleGrantedAuthority(role.name())).collect(Collectors.toSet());
         return getRoles().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
     }
 }

@@ -1,17 +1,16 @@
 package com.store.springbootstoreex.domain;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
-@Table(name = "category")
+@Table(name = "CATEGORY")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name = "category_name", nullable = false, length = 32)
+    @Column(name = "CATEGORY_NAME", nullable = false, length = 32)
     private String categoryName;
 
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
