@@ -19,6 +19,7 @@ import java.util.List;
 @RequestMapping("/admin")
 @PreAuthorize("hasAuthority('ADMIN')")
 public class AdminPanelController {
+
     private final CategoryService categoryService;
     private final ProductService productService;
     private final UserService userService;

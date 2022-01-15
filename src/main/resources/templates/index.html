@@ -7,6 +7,7 @@
 <body>
 
 <button role="button" type="button" onclick="window.location.href='admin'">Go to admin panel</button>
+<button role="button" type="button" onclick="window.location.href='cart'">Cart</button>
 <br>
 <form th:action="@{/search}">
     <label for="category">Категория</label>
@@ -29,6 +30,7 @@
         <th>Категория</th>
         <th>Цена</th>
         <th>Количество</th>
+        <th>Корзина</th>
     </tr>
     <tr th:each="prod : ${productList}">
         <td th:text="${prod.title}"></td>
@@ -36,6 +38,11 @@
         <td th:text="${prod.category}"></td>
         <td th:text="${prod.price}"></td>
         <td th:text="${prod.quantity}"></td>
+        <td>
+            <form method="post" th:action="@{/cart/{id}(id=${prod.id})}">
+                <input type="submit" value="Добавить">
+            </form>
+        </td>
     </tr>
 </table>
 </body>

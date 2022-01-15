@@ -11,16 +11,26 @@ import java.util.List;
 
 public class SecurityUser implements UserDetails {
 
-    private final String username;
-    private final String password;
-    private final List<SimpleGrantedAuthority> authorities;
-    private final boolean isActive;
+    private User user;
+    private List<SimpleGrantedAuthority> authorities;
+//    private final String username;
+//    private final String password;
+//    private final boolean isActive;
 
-    public SecurityUser(String username, String password, List<SimpleGrantedAuthority> authorities, boolean isActive) {
-        this.username = username;
-        this.password = password;
+//    public SecurityUser(String username, String password, List<SimpleGrantedAuthority> authorities, boolean isActive) {
+//        this.username = username;
+//        this.password = password;
+//        this.authorities = authorities;
+//        this.isActive = isActive;
+//    }
+
+
+    public SecurityUser() {
+    }
+
+    public SecurityUser(User user, List<SimpleGrantedAuthority> authorities) {
+        this.user = user;
         this.authorities = authorities;
-        this.isActive = isActive;
     }
 
     @Override
@@ -30,32 +40,32 @@ public class SecurityUser implements UserDetails {
 
     @Override
     public String getPassword() {
-        return password;
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return username;
+        return user.getEmail();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return isActive;
+        return user.isActive();
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return isActive;
+        return user.isActive();
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return isActive;
+        return user.isActive();
     }
 
     @Override
     public boolean isEnabled() {
-        return isActive;
+        return user.isActive();
     }
 
     public static UserDetails userConvert(User user) {
@@ -69,14 +79,11 @@ public class SecurityUser implements UserDetails {
         );
     }
 
+    public User getUser() {
+        return user;
+    }
 
-    @Override
-    public String toString() {
-        return "SecurityUser{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", authorities=" + authorities +
-                ", isActive=" + isActive +
-                '}';
+    public void setUser(User user) {
+        this.user = user;
     }
 }

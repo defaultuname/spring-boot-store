@@ -23,16 +23,7 @@ public class CategoryService {
     }
 
     public Category getCategoryById(Long id) {
-        Optional<Category> optionalCategory = repository.findById(id);
-        Category category;
-
-        if (optionalCategory.isPresent()) {
-            category = optionalCategory.get();
-        } else {
-            throw new CategoryNotFoundException(id);
-        }
-
-        return category;
+        return repository.findById(id).orElseThrow(() -> new CategoryNotFoundException(id));
     }
 
     public List<Category> getAllCategories() {

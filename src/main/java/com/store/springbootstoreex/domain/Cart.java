@@ -2,6 +2,7 @@ package com.store.springbootstoreex.domain;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,9 +18,58 @@ public class Cart {
     private User user;
 
     @ManyToMany(mappedBy = "carts")
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
 
     @Column(name = "TOTAL_PRICE")
     private BigDecimal totalPrice = BigDecimal.valueOf(0);
 
+    public Cart() {
+    }
+
+    public Cart(User user, BigDecimal totalPrice) {
+        this.user = user;
+        this.totalPrice = totalPrice;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "id=" + id +
+                ", user=" + user +
+                ", products=" + products +
+                ", totalPrice=" + totalPrice +
+                '}';
+    }
 }

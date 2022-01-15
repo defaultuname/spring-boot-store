@@ -5,6 +5,7 @@ import com.store.springbootstoreex.exception.UserAlreadyExistsException;
 import com.store.springbootstoreex.exception.UserNotFoundException;
 import com.store.springbootstoreex.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,10 @@ public class UserService {
 
     public User getUserById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+    }
+
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(email));
     }
 
     public List<User> getAllUsers() {

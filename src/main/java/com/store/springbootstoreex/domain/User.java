@@ -30,6 +30,9 @@ public class User {
     @Column(name = "STATUS", nullable = false, length = 25)
     private Status status = Status.ACTIVE;
 
+    @OneToOne(mappedBy = "user")
+    private Cart cart;
+
     public User() {
     }
 
@@ -40,6 +43,24 @@ public class User {
         this.password = password;
         this.role = role;
         this.status = status;
+    }
+
+    public User(String email, String firstname, String lastname, String password, Role role, Status status, Cart cart) {
+        this.email = email;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.password = password;
+        this.role = role;
+        this.status = status;
+        this.cart = cart;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     public Long getId() {
@@ -96,6 +117,10 @@ public class User {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public boolean isActive() {
+        return this.getStatus().equals(Status.ACTIVE);
     }
 
     @Override
