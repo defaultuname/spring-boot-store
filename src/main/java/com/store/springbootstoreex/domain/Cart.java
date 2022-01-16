@@ -13,8 +13,7 @@ public class Cart {
     @Column(name = "ID")
     private Long id;
 
-    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
+    @OneToOne(mappedBy = "cart", fetch = FetchType.LAZY)
     private User user;
 
     @ManyToMany(mappedBy = "carts")
@@ -26,8 +25,9 @@ public class Cart {
     public Cart() {
     }
 
-    public Cart(User user, BigDecimal totalPrice) {
+    public Cart(User user, List<Product> products, BigDecimal totalPrice) {
         this.user = user;
+        this.products = products;
         this.totalPrice = totalPrice;
     }
 

@@ -50,10 +50,9 @@ public class CartController {
 
     @PostMapping("/{id}")
     public String addProdToCart(@PathVariable("id") Long id) {
-        cartService.getCart();
-        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-        String username = loggedInUser.getName();
-        Cart cart = cartService.getCartByUserId(userService.getUserByEmail(username).getId());
+        Long userId = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getId();
+        Cart cart = cartService.getCartByUserId(userId);
+        System.out.println("USERUSERUSER " + cart);
         List<Product> productsOfCart = cart.getProducts();
         Product product = productService.getProductById(id);
         productsOfCart.add(product);

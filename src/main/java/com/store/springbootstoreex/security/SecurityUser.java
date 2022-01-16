@@ -13,17 +13,6 @@ public class SecurityUser implements UserDetails {
 
     private User user;
     private List<SimpleGrantedAuthority> authorities;
-//    private final String username;
-//    private final String password;
-//    private final boolean isActive;
-
-//    public SecurityUser(String username, String password, List<SimpleGrantedAuthority> authorities, boolean isActive) {
-//        this.username = username;
-//        this.password = password;
-//        this.authorities = authorities;
-//        this.isActive = isActive;
-//    }
-
 
     public SecurityUser() {
     }
