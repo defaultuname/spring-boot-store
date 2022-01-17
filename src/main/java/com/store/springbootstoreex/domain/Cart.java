@@ -16,7 +16,7 @@ public class Cart {
     @OneToOne(mappedBy = "cart", fetch = FetchType.LAZY)
     private User user;
 
-    @ManyToMany(mappedBy = "carts")
+    @OneToMany(orphanRemoval = true)
     private List<Product> products = new ArrayList<>();
 
     @Column(name = "TOTAL_PRICE")
@@ -29,6 +29,11 @@ public class Cart {
         this.user = user;
         this.products = products;
         this.totalPrice = totalPrice;
+    }
+
+    public void addProductToCart(Product product) {
+        products.add(product);
+
     }
 
     public Long getId() {
@@ -61,15 +66,5 @@ public class Cart {
 
     public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
-    }
-
-    @Override
-    public String toString() {
-        return "Cart{" +
-                "id=" + id +
-                ", user=" + user +
-                ", products=" + products +
-                ", totalPrice=" + totalPrice +
-                '}';
     }
 }

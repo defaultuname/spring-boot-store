@@ -2,8 +2,6 @@ package com.store.springbootstoreex.domain;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "products")
@@ -29,12 +27,6 @@ public class Product {
     @Column(name = "QUANTITY")
     private int quantity = 0;
 
-    @ManyToMany
-    @JoinTable(name = "PRODUCT_CART",
-    joinColumns = @JoinColumn(name = "PRODUCT_ID"),
-    inverseJoinColumns = @JoinColumn(name = "CART_ID"))
-    private Set<Cart> carts;
-
     public Product() {
     }
 
@@ -44,14 +36,6 @@ public class Product {
         this.category = category;
         this.price = price;
         this.quantity = quantity;
-    }
-
-    public Set<Cart> getCarts() {
-        return carts;
-    }
-
-    public void setCarts(Set<Cart> carts) {
-        this.carts = carts;
     }
 
     public String getImageLocation() {

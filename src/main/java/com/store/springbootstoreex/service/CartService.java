@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-//@Scope(value = WebApplicationContext.SCOPE_SESSION)
 public class CartService {
 
     private final CartRepository cartRepository;

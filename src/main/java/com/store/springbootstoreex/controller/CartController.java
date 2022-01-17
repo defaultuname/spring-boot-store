@@ -52,11 +52,12 @@ public class CartController {
     public String addProdToCart(@PathVariable("id") Long id) {
         Long userId = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getId();
         Cart cart = cartService.getCartByUserId(userId);
-        System.out.println("USERUSERUSER " + cart);
-        List<Product> productsOfCart = cart.getProducts();
         Product product = productService.getProductById(id);
-        productsOfCart.add(product);
-        cart.setProducts(productsOfCart);
+
+        System.out.println("USERUSERUSER " + cart);
+
+        List<Product> productsOfCart = cart.getProducts();
+        cart.addProductToCart(product);
         cartService.saveCart(cart);
 
         System.out.println(productsOfCart);
