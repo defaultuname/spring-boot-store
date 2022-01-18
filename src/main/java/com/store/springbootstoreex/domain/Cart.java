@@ -16,7 +16,7 @@ public class Cart {
     @OneToOne(mappedBy = "cart", fetch = FetchType.LAZY)
     private User user;
 
-    @OneToMany(orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Product> products = new ArrayList<>();
 
     public Cart() {
