@@ -6,11 +6,11 @@
 </head>
 <body>
 
-<button role="button" type="button" onclick="window.location.href='admin'">Go to admin panel</button>
-<button role="button" type="button" onclick="window.location.href='cart'">Cart</button>
+<button role="button" type="button" onclick="window.location.href='index'">Go to home page</button>
+<div>
+    Сумма корзины: <span th:text="${totalPrice}"></span>
+</div>
 <br>
-<br>
-
 <table>
     <tr>
         <th>Имя</th>

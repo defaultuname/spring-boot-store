@@ -16,19 +16,15 @@ public class Cart {
     @OneToOne(mappedBy = "cart", fetch = FetchType.LAZY)
     private User user;
 
-    @OneToMany(orphanRemoval = true)
+    @OneToMany(orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Product> products = new ArrayList<>();
-
-    @Column(name = "TOTAL_PRICE")
-    private BigDecimal totalPrice = BigDecimal.valueOf(0);
 
     public Cart() {
     }
 
-    public Cart(User user, List<Product> products, BigDecimal totalPrice) {
+    public Cart(User user, List<Product> products) {
         this.user = user;
         this.products = products;
-        this.totalPrice = totalPrice;
     }
 
     public void addProductToCart(Product product) {
@@ -58,13 +54,5 @@ public class Cart {
 
     public void setProducts(List<Product> products) {
         this.products = products;
-    }
-
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
     }
 }
