@@ -1,6 +1,8 @@
 package com.store.springbootstoreex.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "USERS")
@@ -11,12 +13,15 @@ public class User {
     private Long id;
 
     @Column(name = "EMAIL", nullable = false)
+    @Email(message = "this is not email!")
     private String email;
 
     @Column(name = "FIRST_NAME", nullable = false, length = 100)
+    @Size(min = 1, max = 100, message = "firstname can not be empty or >100 characters long!")
     private String firstname;
 
     @Column(name = "LAST_NAME", nullable = false, length = 100)
+    @Size(min = 1, max = 100, message = "lastname can not be empty or >100 characters long!")
     private String lastname;
 
     @Column(name = "PASSWORD", nullable = false)

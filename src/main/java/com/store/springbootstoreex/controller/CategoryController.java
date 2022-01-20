@@ -4,15 +4,18 @@ import com.store.springbootstoreex.domain.Category;
 import com.store.springbootstoreex.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/category")
 @PreAuthorize("hasAuthority('ADMIN')")
 public class CategoryController {
+
     private final CategoryService categoryService;
 
     @Autowired
@@ -26,7 +29,11 @@ public class CategoryController {
     }
 
     @PostMapping("/new")
-    public String createCategory(@ModelAttribute("category") Category category) {
+    public String createCategory(@Valid @ModelAttribute Category category, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "createCategory";
+        }
+
         categoryService.saveCategory(category);
         return "redirect:/admin";
     }
@@ -39,7 +46,11 @@ public class CategoryController {
     }
 
     @PostMapping("/edit/{id}")
-    public String editCategory(@ModelAttribute("category") Category category) {
+    public String editCategory(@Valid @ModelAttribute Category category, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "editCategory";
+        }
+
         categoryService.saveCategory(category);
         return "redirect:/admin";
     }

@@ -36,9 +36,11 @@ public class AdminPanelController {
         List<Category> categoryList = categoryService.getAllCategories();
         List<Product> productList = productService.getAllProducts();
         List<User> userList = userService.getAllUsers();
+
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("productList", productList);
         model.addAttribute("userList", userList);
+
         return "admin";
     }
 }

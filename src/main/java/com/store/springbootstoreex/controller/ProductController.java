@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -34,7 +36,11 @@ public class ProductController {
     }
 
     @PostMapping("/new")
-    public String createProduct(@ModelAttribute("product") Product product) {
+    public String createProduct(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "createProd";
+        }
+
         productService.saveProduct(product);
         return "redirect:/admin";
     }
@@ -43,13 +49,19 @@ public class ProductController {
     public String editProduct(@PathVariable("id") Long id, Model model) {
         Product product = productService.getProductById(id);
         List<Category> categoryList = categoryService.getAllCategories();
+
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("productForm", product);
+
         return "editProd";
     }
 
     @PostMapping("/edit/{id}")
-    public String editProduct(@ModelAttribute("product") Product product) {
+    public String editProduct(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "editProd";
+        }
+
         productService.saveProduct(product);
         return "redirect:/admin";
     }

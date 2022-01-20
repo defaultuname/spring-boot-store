@@ -30,8 +30,10 @@ public class IndexPageController {
     public String homepage(Model model) {
         List<Product> productList = productService.getAllProducts();
         List<Category> categoryList = categoryService.getAllCategories();
+
         model.addAttribute("productList", productList);
         model.addAttribute("categoryList", categoryList);
+
         return "index";
     }
 

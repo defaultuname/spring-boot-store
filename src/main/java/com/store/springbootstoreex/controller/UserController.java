@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -28,13 +30,19 @@ public class UserController {
     public String createUser(Model model) {
         List<Role> roles = List.of(Role.values());
         List<Status> statuses = List.of(Status.values());
+
         model.addAttribute("roles", roles);
         model.addAttribute("statuses", statuses);
+
         return "createUser";
     }
 
     @PostMapping("/new")
-    public String createUser(@ModelAttribute User user) {
+    public String createUser(@Valid @ModelAttribute User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "createUser";
+        }
+
         userService.saveUser(user);
         return "redirect:/admin";
     }
@@ -44,15 +52,20 @@ public class UserController {
         User user = userService.getUserById(id);
         List<Role> roles = List.of(Role.values());
         List<Status> statuses = List.of(Status.values());
+
         model.addAttribute("userForm", user);
         model.addAttribute("roles", roles);
         model.addAttribute("statuses", statuses);
+
         return "editUser";
     }
 
     @PostMapping("/edit/{id}")
-    public String editUser(@ModelAttribute User user) {
-        user.setPassword(userService.getUserById(user.getId()).getPassword());
+    public String editUser(@Valid @ModelAttribute User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "editUser";
+        }
+
         userService.editUser(user);
         return "redirect:/admin";
     }

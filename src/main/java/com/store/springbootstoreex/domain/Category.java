@@ -1,6 +1,7 @@
 package com.store.springbootstoreex.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "CATEGORY")
@@ -11,6 +12,7 @@ public class Category {
     private Long id;
 
     @Column(name = "CATEGORY_NAME", nullable = false, length = 32)
+    @Size(min = 1, max = 32, message = "name of category cant be empty or >32 characters long!")
     private String categoryName;
 
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category")

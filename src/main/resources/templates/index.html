@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Home page</title>
 </head>
 <body>
 
-<button role="button" type="button" onclick="window.location.href='admin'">Go to admin panel</button>
+<button sec:authorize="hasAuthority('ADMIN')" role="button" type="button" onclick="window.location.href='admin'">Go to admin panel</button>
 <button role="button" type="button" onclick="window.location.href='cart'">Cart</button>
 <br>
 <form th:action="@{/search}">

@@ -43,6 +43,7 @@ public class UserService {
     }
 
     public void editUser(User user) {
+        user.setPassword(getUserById(user.getId()).getPassword());
         userRepository.save(user);
     }
 

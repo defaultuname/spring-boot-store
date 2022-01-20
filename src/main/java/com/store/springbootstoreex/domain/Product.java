@@ -1,6 +1,8 @@
 package com.store.springbootstoreex.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
 @Entity
@@ -12,9 +14,11 @@ public class Product {
     private Long id;
 
     @Column(name = "TITLE", nullable = false)
+    @Size(min = 1, max = 255, message = "title can not be empty or >255 characters long!")
     private String title;
 
-    @Column(name = "IMAGE_LOCATION")
+    @Column(name = "IMAGE_LOCATION", length = 384)
+    @Size(max = 384, message = "title can not be empty or >384 characters long!")
     private String imageLocation;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -22,9 +26,11 @@ public class Product {
     private Category category;
 
     @Column(name = "PRICE", nullable = false)
+    @Min(value = 0, message = "price cant be less than 0!")
     private BigDecimal price;
 
     @Column(name = "QUANTITY")
+    @Min(value = 0, message = "quantity cant be less than 0!")
     private int quantity = 0;
 
     public Product() {
