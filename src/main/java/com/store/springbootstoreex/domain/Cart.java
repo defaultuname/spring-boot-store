@@ -26,11 +26,6 @@ public class Cart {
         this.products = products;
     }
 
-    public void addProductToCart(Product product) {
-        products.add(product);
-
-    }
-
     public Long getId() {
         return id;
     }

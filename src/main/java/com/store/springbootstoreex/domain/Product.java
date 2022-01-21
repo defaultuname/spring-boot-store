@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "PRODUCTS")
@@ -33,15 +34,32 @@ public class Product {
     @Min(value = 0, message = "quantity cant be less than 0!")
     private int quantity = 0;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    private List<Review> reviews;
+
     public Product() {
     }
 
-    public Product(String title, String imageLocation, Category category, BigDecimal price, int quantity) {
+//    public Product(String title, String imageLocation, Category category, BigDecimal price, int quantity) {
+//        this.title = title;
+//        this.imageLocation = imageLocation;
+//        this.category = category;
+//        this.price = price;
+//        this.quantity = quantity;
+//    }
+
+
+    public Product(String title, String imageLocation, Category category, BigDecimal price, int quantity, List<Review> reviews) {
         this.title = title;
         this.imageLocation = imageLocation;
         this.category = category;
         this.price = price;
         this.quantity = quantity;
+        this.reviews = reviews;
+    }
+
+    public void addCommentToProduct(Review review) {
+        reviews.add(review);
     }
 
     public String getImageLocation() {
@@ -90,6 +108,14 @@ public class Product {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
     @Override
