@@ -1,7 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <body>
-<h1>Something went wrong! </h1>
-<a href="/">Go Home</a>
+<h1>Что-то пошло не по плану! </h1>
+<h2>На сервере произошла ошибка, либо запрашиваемая страница не существует.</h2>
+<h4 th:text="${exception}"></h4>
+<form>
+    <input type="button" value="Назад" onclick="history.back()">
+</form>
 </body>
 </html>

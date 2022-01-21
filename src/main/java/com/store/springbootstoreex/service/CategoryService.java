@@ -1,41 +1,39 @@
 package com.store.springbootstoreex.service;
 
 import com.store.springbootstoreex.domain.Category;
+import com.store.springbootstoreex.exception.CategoryIsNotEmptyException;
 import com.store.springbootstoreex.exception.CategoryNotFoundException;
 import com.store.springbootstoreex.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CategoryService {
 
-    private final CategoryRepository repository;
+    private final CategoryRepository categoryRepository;
 
     @Autowired
-    public CategoryService(CategoryRepository repository) {
-        this.repository = repository;
+    public CategoryService(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
     }
 
     public void saveCategory(Category category) {
-        repository.save(category);
+        categoryRepository.save(category);
     }
 
     public Category getCategoryById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new CategoryNotFoundException(id));
+        return categoryRepository.findById(id).orElseThrow(() -> new CategoryNotFoundException(id));
     }
 
     public List<Category> getAllCategories() {
-        return repository.findAll();
+        return categoryRepository.findAll();
     }
 
-//    public Optional<Category> getCategoryByName(String name) {
-//        return repository.findByCategoryName(name);
-//    }
-
-    public void deleteById(long id) {
-        repository.deleteById(id);
+    public void deleteById(Long id) {
+        if (!getCategoryById(id).getProducts().isEmpty())
+            throw new CategoryIsNotEmptyException(id); // Категория не может быть удалена, если в ней есть продукты
+        categoryRepository.deleteById(id);
     }
 }
