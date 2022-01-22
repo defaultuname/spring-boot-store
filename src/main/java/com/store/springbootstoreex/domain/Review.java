@@ -1,6 +1,9 @@
 package com.store.springbootstoreex.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "REVIEWS")
@@ -11,16 +14,20 @@ public class Review {
     private Long id;
 
     @Column(name = "COMMENT", length = 384, nullable = false)
+    @Size(max = 384, message = "comment can not be >384 characters long!")
     private String comment;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "AUTHOR_ID", referencedColumnName = "ID", nullable = false)
     private User author;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PRODUCT_ID")
+    @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID", nullable = false)
     private Product product;
 
-    @Column(name = "RATING")
+    @Column(name = "RATING", nullable = false)
+    @Min(value = 1, message = "minimal rating is 1!")
+    @Max(value = 5, message = "maximal rating is 5!")
     private int rating;
 
     public Review() {
@@ -30,6 +37,12 @@ public class Review {
         this.comment = comment;
         this.author = author;
         this.product = product;
+        this.rating = rating;
+    }
+
+    public Review(String comment, User author, int rating) {
+        this.comment = comment;
+        this.author = author;
         this.rating = rating;
     }
 
@@ -71,5 +84,16 @@ public class Review {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "id=" + id +
+                ", comment='" + comment + '\'' +
+                ", author=" + author +
+                ", product=" + product +
+                ", rating=" + rating +
+                '}';
     }
 }

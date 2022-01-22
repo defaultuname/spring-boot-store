@@ -15,7 +15,7 @@ public class Cart {
     @OneToOne(mappedBy = "cart", fetch = FetchType.LAZY)
     private User user;
 
-    @OneToMany(orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Product> products = new ArrayList<>();
 
     public Cart() {
@@ -24,6 +24,10 @@ public class Cart {
     public Cart(User user, List<Product> products) {
         this.user = user;
         this.products = products;
+    }
+
+    public void addProductToCart(Product product) {
+        products.add(product);
     }
 
     public Long getId() {
@@ -48,5 +52,14 @@ public class Cart {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "id=" + id +
+                ", user=" + user +
+                ", products=" + products +
+                '}';
     }
 }

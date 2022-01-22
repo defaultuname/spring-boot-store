@@ -34,20 +34,11 @@ public class Product {
     @Min(value = 0, message = "quantity cant be less than 0!")
     private int quantity = 0;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
     private List<Review> reviews;
 
     public Product() {
     }
-
-//    public Product(String title, String imageLocation, Category category, BigDecimal price, int quantity) {
-//        this.title = title;
-//        this.imageLocation = imageLocation;
-//        this.category = category;
-//        this.price = price;
-//        this.quantity = quantity;
-//    }
-
 
     public Product(String title, String imageLocation, Category category, BigDecimal price, int quantity, List<Review> reviews) {
         this.title = title;
@@ -127,6 +118,7 @@ public class Product {
                 ", category=" + category +
                 ", price=" + price +
                 ", quantity=" + quantity +
+                ", reviews=" + reviews +
                 '}';
     }
 }

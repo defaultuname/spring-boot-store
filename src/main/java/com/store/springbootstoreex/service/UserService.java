@@ -5,6 +5,7 @@ import com.store.springbootstoreex.exception.UserAlreadyExistsException;
 import com.store.springbootstoreex.exception.UserNotFoundException;
 import com.store.springbootstoreex.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,11 @@ public class UserService {
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    public User getLoggedUser() {
+        return getUserByEmail(SecurityContextHolder
+                .getContext().getAuthentication().getName());
     }
 
     public void saveUser(User user) {

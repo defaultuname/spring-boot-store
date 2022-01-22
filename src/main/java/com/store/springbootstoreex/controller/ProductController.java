@@ -4,6 +4,7 @@ import com.store.springbootstoreex.domain.Category;
 import com.store.springbootstoreex.domain.Product;
 import com.store.springbootstoreex.service.CategoryService;
 import com.store.springbootstoreex.service.ProductService;
+import com.store.springbootstoreex.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -21,11 +22,13 @@ public class ProductController {
 
     private final CategoryService categoryService;
     private final ProductService productService;
+    private final ReviewService reviewService;
 
     @Autowired
-    public ProductController(CategoryService categoryService, ProductService productService) {
+    public ProductController(CategoryService categoryService, ProductService productService, ReviewService reviewService) {
         this.categoryService = categoryService;
         this.productService = productService;
+        this.reviewService = reviewService;
     }
 
     @GetMapping("/new")
@@ -70,5 +73,13 @@ public class ProductController {
     public String deleteProduct(@PathVariable("id") Long id) {
         productService.deleteProductById(id);
         return "redirect:/admin";
+    }
+
+    @GetMapping("{id}")
+    @PreAuthorize("hasAuthority('USER')")
+    public String getOneProduct(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("product", productService.getProductById(id));
+        model.addAttribute("reviews", reviewService.getCommentsByProductId(id));
+        return "product";
     }
 }

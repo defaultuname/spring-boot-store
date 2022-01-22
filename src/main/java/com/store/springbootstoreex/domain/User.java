@@ -3,6 +3,7 @@ package com.store.springbootstoreex.domain;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "USERS")
@@ -39,16 +40,21 @@ public class User {
     @JoinColumn(name = "CART_ID", referencedColumnName = "ID")
     private Cart cart = new Cart();
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "author")
+    private List<Review> comments;
+
     public User() {
     }
 
-    public User(String email, String firstname, String lastname, String password, Role role, Status status) {
+    public User(String email, String firstname, String lastname, String password, Role role, Status status, Cart cart, List<Review> comments) {
         this.email = email;
         this.firstname = firstname;
         this.lastname = lastname;
         this.password = password;
         this.role = role;
         this.status = status;
+        this.cart = cart;
+        this.comments = comments;
     }
 
     public Cart getCart() {
@@ -119,6 +125,14 @@ public class User {
         return this.getStatus().equals(Status.ACTIVE);
     }
 
+    public List<Review> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Review> comments) {
+        this.comments = comments;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -129,6 +143,8 @@ public class User {
                 ", password='" + password + '\'' +
                 ", role=" + role +
                 ", status=" + status +
+                ", cart=" + cart +
+                ", comments=" + comments +
                 '}';
     }
 }

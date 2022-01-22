@@ -5,7 +5,6 @@ import com.store.springbootstoreex.domain.Product;
 import com.store.springbootstoreex.exception.CartNotFoundException;
 import com.store.springbootstoreex.repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -51,10 +50,7 @@ public class CartService {
     }
 
     public Cart getLoggedUserCart() {
-        return getCartByUserId(userService.getUserByEmail(
-                SecurityContextHolder
-                        .getContext().getAuthentication()
-                        .getName()).getId()
+        return getCartByUserId(userService.getLoggedUser().getId()
         );
     }
 }

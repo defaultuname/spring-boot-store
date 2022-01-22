@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о товаре</title>
+</head>
+<body>
+<h1>Информация о товаре</h1>
+<table>
+    <tr>
+        <th>Имя</th>
+        <th>Изображение</th>
+        <th>Категория</th>
+        <th>Цена</th>
+        <th>Количество</th>
+        <th>Корзина</th>
+    </tr>
+    <tr th:each="prod : ${product}">
+        <td th:text="${prod.title}"></td>
+        <td><img th:src="${prod.imageLocation}" height="200"/></td>
+        <td th:text="${prod.category}"></td>
+        <td th:text="${prod.price}"></td>
+        <td th:text="${prod.quantity}"></td>
+        <td>
+            <form method="post" th:action="@{/cart/{id}(id=${prod.id})}">
+                <input type="submit" value="Добавить">
+            </form>
+        </td>
+    </tr>
+</table>
+<br>
+<input type="button" value="Назад" onclick="history.back()">
+<br>
+<form th:action="@{/comments/new}" method="post">
+    <h4>Хотите оставить отзыв?</h4>
+    <input type="hidden" th:value="${product.id}" name="product">
+    Оценка<br>
+    <label>
+        <input type="number" min="1" max="5" name="rating" required>
+    </label><br><br>
+    Комментарий<Br>
+    <label>
+        <textarea maxlength="384" cols="50" rows="4" placeholder="Не более 384 символов" name="comment"></textarea>
+    </label><br><br>
+    <input type="submit" value="Отправить">
+    <input type="reset" value="Очистить">
+</form>
+<h2>Отзывы:</h2>
+<table>
+    <tr>
+        <th>Автор</th>
+        <th>Оценка</th>
+        <th>Комментарий</th>
+        <th sec:authorize="hasAuthority('ADMIN')">Действия</th>
+    </tr>
+    <tr th:each="rev : ${reviews}">
+        <td th:text="${rev.author.firstname}"></td>
+        <td th:text="${rev.rating}"></td>
+        <td th:text="${rev.comment}"></td>
+        <td sec:authorize="hasAuthority('ADMIN')">
+            <form method="post" th:action="@{/comments/delete/{id}(id=${rev.id})}">
+                <input type="submit" value="Удалить">
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
