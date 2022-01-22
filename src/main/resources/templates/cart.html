@@ -18,6 +18,7 @@
         <th>Категория</th>
         <th>Цена</th>
         <th>Количество</th>
+        <th>Действие</th>
     </tr>
     <tr th:each="cart : ${cart}">
         <td th:text="${cart.title}"></td>
@@ -25,6 +26,11 @@
         <td th:text="${cart.category}"></td>
         <td th:text="${cart.price}"></td>
         <td th:text="${cart.quantity}"></td>
+        <td>
+            <form method="post" th:action="@{/cart/delete/{id}(id=${cart.id})}">
+                <input type="submit" value="Удалить">
+            </form>
+        </td>
     </tr>
 </table>
 </body>

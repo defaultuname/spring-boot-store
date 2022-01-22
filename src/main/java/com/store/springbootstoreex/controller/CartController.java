@@ -42,11 +42,14 @@ public class CartController {
 
     @PostMapping("/{id}")
     public String addProdToCart(@PathVariable("id") Long id) {
-        Cart cart = cartService.getLoggedUserCart();
         Product product = productService.getProductById(id);
-
-        cart.addProductToCart(product);
-        cartService.saveCart(cart);
+        cartService.addProductToCart(product);
         return "redirect:/index";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteProductFromCart(@PathVariable Long id) {
+        cartService.deleteProductFromCart(productService.getProductById(id));
+        return "redirect:/cart";
     }
 }

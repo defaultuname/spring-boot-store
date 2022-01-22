@@ -75,9 +75,9 @@ public class ProductController {
         return "redirect:/admin";
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('USER')")
-    public String getOneProduct(@PathVariable("id") Long id, Model model) {
+    public String getOneProduct(@PathVariable Long id, Model model) {
         model.addAttribute("product", productService.getProductById(id));
         model.addAttribute("reviews", reviewService.getCommentsByProductId(id));
         return "product";

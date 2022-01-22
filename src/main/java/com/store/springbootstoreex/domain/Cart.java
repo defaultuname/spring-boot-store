@@ -15,7 +15,10 @@ public class Cart {
     @OneToOne(mappedBy = "cart", fetch = FetchType.LAZY)
     private User user;
 
-    @OneToMany(orphanRemoval = true, fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "CART_PRODUCTS",
+            joinColumns = @JoinColumn(name = "CART_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PRODUCTS_ID"))
     private List<Product> products = new ArrayList<>();
 
     public Cart() {
@@ -24,10 +27,6 @@ public class Cart {
     public Cart(User user, List<Product> products) {
         this.user = user;
         this.products = products;
-    }
-
-    public void addProductToCart(Product product) {
-        products.add(product);
     }
 
     public Long getId() {

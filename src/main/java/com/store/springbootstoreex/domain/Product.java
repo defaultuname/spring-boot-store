@@ -37,16 +37,20 @@ public class Product {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
     private List<Review> reviews;
 
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "products")
+    private List<Cart> productInCartsList;
+
     public Product() {
     }
 
-    public Product(String title, String imageLocation, Category category, BigDecimal price, int quantity, List<Review> reviews) {
+    public Product(String title, String imageLocation, Category category, BigDecimal price, int quantity, List<Review> reviews, List<Cart> productInCartsList) {
         this.title = title;
         this.imageLocation = imageLocation;
         this.category = category;
         this.price = price;
         this.quantity = quantity;
         this.reviews = reviews;
+        this.productInCartsList = productInCartsList;
     }
 
     public void addCommentToProduct(Review review) {
@@ -109,6 +113,14 @@ public class Product {
         this.reviews = reviews;
     }
 
+    public List<Cart> getProductInCartsList() {
+        return productInCartsList;
+    }
+
+    public void setProductInCartsList(List<Cart> productInCartsList) {
+        this.productInCartsList = productInCartsList;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -119,6 +131,7 @@ public class Product {
                 ", price=" + price +
                 ", quantity=" + quantity +
                 ", reviews=" + reviews +
+                ", productInCartsList=" + productInCartsList +
                 '}';
     }
 }

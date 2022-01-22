@@ -53,4 +53,14 @@ public class CartService {
         return getCartByUserId(userService.getLoggedUser().getId()
         );
     }
+
+    public void addProductToCart(Product product) {
+        getLoggedUserCart().getProducts().add(product);
+        saveCart(getLoggedUserCart());
+    }
+
+    public void deleteProductFromCart(Product product) {
+        getLoggedUserCart().getProducts().remove(product);
+        saveCart(getLoggedUserCart());
+    }
 }
