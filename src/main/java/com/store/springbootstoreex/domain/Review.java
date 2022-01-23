@@ -21,7 +21,6 @@ public class Review {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "AUTHOR_ID", referencedColumnName = "ID", nullable = false)
-    @NotNull
     private User author;
 
     @ManyToOne(fetch = FetchType.LAZY)

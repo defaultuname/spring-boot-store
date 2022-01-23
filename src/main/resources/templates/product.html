@@ -51,7 +51,7 @@
         <th>Автор</th>
         <th>Оценка</th>
         <th>Комментарий</th>
-        <th sec:authorize="hasAuthority('ADMIN')">Действия</th>
+        <th sec:authorize="hasAuthority('ADMIN')"></th>
     </tr>
     <tr th:each="rev : ${reviews}">
         <td th:text="${rev.author.firstname}"></td>
