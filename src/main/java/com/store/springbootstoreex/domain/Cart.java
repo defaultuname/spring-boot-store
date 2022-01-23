@@ -1,7 +1,7 @@
 package com.store.springbootstoreex.domain;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -19,7 +19,7 @@ public class Cart {
     @JoinTable(name = "CART_PRODUCTS",
             joinColumns = @JoinColumn(name = "CART_ID"),
             inverseJoinColumns = @JoinColumn(name = "PRODUCTS_ID"))
-    private List<Product> products = new ArrayList<>();
+    private List<Product> products = new LinkedList<>();
 
     public Cart() {
     }

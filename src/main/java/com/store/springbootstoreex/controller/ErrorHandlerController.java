@@ -1,34 +1,27 @@
-//package com.store.springbootstoreex.controller;
-//
-//import org.springframework.web.bind.annotation.ControllerAdvice;
-//import org.springframework.web.bind.annotation.ExceptionHandler;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.servlet.ModelAndView;
-//
-//import javax.servlet.RequestDispatcher;
-//import javax.servlet.http.HttpServletRequest;
-//
-///*
-//Контроллер, отвечающий за перехватку ошибок.
-// */
-//
-//@ControllerAdvice
-//public class ErrorHandlerController {
-//
-//    @RequestMapping("/error")
-//    public void handleError(HttpServletRequest request) { // Метод, отвечающий за ловлю ошибок и передачу их методу-парсеру
-//        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE); // Получаем статус-код ощибки
-//
-//        if (status != null) {
-//            errorHandler(new Exception());
-//        }
-//    }
-//
-//    @ExceptionHandler(value = Exception.class)
-//    private ModelAndView errorHandler(Exception e) { // Метод-персер отвечает за передачу ошибки в качестве аттрибута на Thymeleaf
-//        ModelAndView mav = new ModelAndView();
-//        mav.addObject("exception", e);
-//        mav.setViewName("error"); // error.html - страница для ошибок
-//        return mav;
-//    }
-//}
+package com.store.springbootstoreex.controller;
+
+import com.store.springbootstoreex.exception.CategoryIsNotEmptyException;
+import com.store.springbootstoreex.exception.ProductNotFoundException;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+/*
+Контроллер, отвечающий за перехватку ошибок.
+ */
+
+@ControllerAdvice
+public class ErrorHandlerController {
+
+    @ExceptionHandler(ProductNotFoundException.class) // Обработчик ProductNotFoundException. Помещает аттрибут с сообщением для пользователя на 404.html
+    public String handleProductNotFoundException(Model model) {
+        model.addAttribute("msg", "Данный товар не найден");
+        return "error/404";
+    }
+
+    @ExceptionHandler(CategoryIsNotEmptyException.class) // Обработчик CategoryIsNotEmptyException. Помещает аттрибут с сообщением для пользователя на 500.html
+    public String handleCategoryIsNotEmptyException(Model model) {
+        model.addAttribute("msg", "Данная катеогрия содержит в себе товары и не может быть удалена");
+        return "error/500";
+    }
+}
