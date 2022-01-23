@@ -2,6 +2,7 @@ package com.store.springbootstoreex.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.List;
@@ -16,6 +17,7 @@ public class Product {
 
     @Column(name = "TITLE", nullable = false)
     @Size(min = 1, max = 255, message = "title can not be empty or >255 characters long!")
+    @NotNull
     private String title;
 
     @Column(name = "IMAGE_LOCATION", length = 384)
@@ -28,6 +30,7 @@ public class Product {
 
     @Column(name = "PRICE", nullable = false)
     @Min(value = 0, message = "price cant be less than 0!")
+    @NotNull
     private BigDecimal price;
 
     @Column(name = "QUANTITY")

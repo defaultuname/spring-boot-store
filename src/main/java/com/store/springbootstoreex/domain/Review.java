@@ -3,6 +3,7 @@ package com.store.springbootstoreex.domain;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -15,19 +16,23 @@ public class Review {
 
     @Column(name = "COMMENT", length = 384, nullable = false)
     @Size(max = 384, message = "comment can not be >384 characters long!")
+    @NotNull
     private String comment;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "AUTHOR_ID", referencedColumnName = "ID", nullable = false)
+    @NotNull
     private User author;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID", nullable = false)
+    @NotNull
     private Product product;
 
     @Column(name = "RATING", nullable = false)
     @Min(value = 1, message = "minimal rating is 1!")
     @Max(value = 5, message = "maximal rating is 5!")
+    @NotNull
     private int rating;
 
     public Review() {

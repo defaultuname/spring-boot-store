@@ -2,6 +2,7 @@ package com.store.springbootstoreex.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -15,29 +16,36 @@ public class User {
 
     @Column(name = "EMAIL", nullable = false)
     @Email(message = "this is not email!")
+    @NotNull
     private String email;
 
     @Column(name = "FIRST_NAME", nullable = false, length = 100)
     @Size(min = 1, max = 100, message = "firstname can not be empty or >100 characters long!")
+    @NotNull
     private String firstname;
 
     @Column(name = "LAST_NAME", nullable = false, length = 100)
     @Size(min = 1, max = 100, message = "lastname can not be empty or >100 characters long!")
+    @NotNull
     private String lastname;
 
     @Column(name = "PASSWORD", nullable = false)
+    @NotNull
     private String password;
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "ROLE", nullable = false, length = 25)
+    @NotNull
     private Role role = Role.USER;
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "STATUS", nullable = false, length = 25)
+    @NotNull
     private Status status = Status.ACTIVE;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "CART_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "CART_ID", referencedColumnName = "ID", nullable = false)
+    @NotNull
     private Cart cart = new Cart();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "author")

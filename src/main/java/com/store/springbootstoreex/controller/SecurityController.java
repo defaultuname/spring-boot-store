@@ -4,10 +4,12 @@ import com.store.springbootstoreex.domain.User;
 import com.store.springbootstoreex.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
@@ -22,7 +24,10 @@ public class SecurityController {
     }
 
     @GetMapping("/login")
-    public String getLoginPage() {
+    public String getLoginPage(@RequestParam(value = "error", required = false) Boolean error, Model model) {
+        if (error != null) {
+            model.addAttribute("msg", "Неверный email или пароль, либо такой аккаунт не существует");
+        }
         return "login";
     }
 
