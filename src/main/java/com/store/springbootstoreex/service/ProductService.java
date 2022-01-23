@@ -14,10 +14,12 @@ import java.util.List;
 public class ProductService {
 
     private final ProductRepository repository;
+    private final CartService cartService;
 
     @Autowired
-    public ProductService(ProductRepository repository) {
+    public ProductService(ProductRepository repository, CartService cartService) {
         this.repository = repository;
+        this.cartService = cartService;
     }
 
     public void saveProduct(Product product) {
@@ -52,7 +54,8 @@ public class ProductService {
         return repository.findProductsByCategoryNameAndContainsTitle(category, title);
     }
 
-    public void deleteProductById(long id) {
+    public void deleteProductById(Long id) {
+        cartService.getAllCarts().forEach(cart -> cart.getProducts().remove(getProductById(id))); // Перед удалением самого товара мы удаляем его из всех корзин пользователей
         repository.deleteById(id);
     }
 }

@@ -49,7 +49,6 @@ public class IndexPageController {
 
         model.addAttribute("pageNo", page);
         model.addAttribute("totalPages", paginatedProducts.getTotalPages());
-        model.addAttribute("totalItems", paginatedProducts.getTotalElements());
         model.addAttribute("productList", productList);
         model.addAttribute("categoryList", categoryList);
 
