@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<button role="button" type="button" onclick="window.location.href='index'">Go to home page</button>
+<button role="button" type="button" onclick="window.location.href='index'">На главную</button>
 <div>
     Сумма корзины: <span th:text="${totalPrice}"></span>
 </div>
@@ -17,15 +17,13 @@
         <th>Изображение</th>
         <th>Категория</th>
         <th>Цена</th>
-        <th>Количество</th>
-        <th>Действие</th>
+        <th></th>
     </tr>
     <tr th:each="cart : ${cart}">
         <td th:text="${cart.title}"></td>
         <td><img th:src="${cart.imageLocation}" height="200"/></td>
         <td th:text="${cart.category}"></td>
         <td th:text="${cart.price}"></td>
-        <td th:text="${cart.quantity}"></td>
         <td>
             <form method="post" th:action="@{/cart/delete/{id}(id=${cart.id})}">
                 <input type="submit" value="Удалить">

@@ -16,6 +16,7 @@ public class User {
 
     @Column(name = "EMAIL", nullable = false)
     @Email(message = "this is not email!")
+    @Size(min = 1, max = 255, message = "too long email (or empty!)")
     @NotNull
     private String email;
 
@@ -35,20 +36,20 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     @Column(name = "ROLE", nullable = false, length = 25)
     @NotNull
-    private Role role = Role.USER;
+    private Role role = Role.USER; // По стандарту юзер имеет роль USER
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "STATUS", nullable = false, length = 25)
     @NotNull
-    private Status status = Status.ACTIVE;
+    private Status status = Status.ACTIVE; // По стандарту юзер имеет статус ACTIVE
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "CART_ID", referencedColumnName = "ID", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL) // При создании пользователя создаётся и корзина для него
+    @JoinColumn(name = "CART_ID", referencedColumnName = "ID", nullable = false) // (а при удалении - корзина удаляется)
     @NotNull
     private Cart cart = new Cart();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "author")
-    private List<Review> comments;
+    private List<Review> comments; // Лист оставленных юзером отзывов. Удаляется вместе с ним
 
     public User() {
     }

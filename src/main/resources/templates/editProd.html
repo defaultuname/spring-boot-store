@@ -2,15 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Editing</title>
+    <title>Изменение товара</title>
 </head>
 <body>
 <form th:action="@{/products/edit/{id}(id=${productForm.id})}" th:object="${productForm}" method="post">
-    <label for="title">Title: </label><br>
-    <input type="text" id="title" name="title" th:field="*{title}" required><br>
+    <label for="title">Наименование: </label><br>
+    <input type="text" id="title" name="title" th:field="*{title}" min="1" max="255" required><br>
 
-    <label for="imageLocation">Image Location: </label><br>
-    <input type="text" id="imageLocation" name="imageLocation" th:field="*{imageLocation}"><br>
+    <label for="imageLocation">Изображение: </label><br>
+    <input type="text" id="imageLocation" name="imageLocation"  th:field="*{imageLocation}" max="384"><br>
 
     <label for="category">Категория: </label><br>
     <select id="category" name="category">
@@ -18,13 +18,13 @@
                 th:field="*{category}" th:value="${cat.id}"></option>
     </select><br>
 
-    <label for="price">Price: </label><br>
+    <label for="price">Цена: </label><br>
     <input type="number" id="price" name="price" min="0" step=".01" th:field="*{price}" required><br>
 
-    <label for="quantity">Quantity: </label><br>
+    <label for="quantity">Количество: </label><br>
     <input type="number" id="quantity" name="quantity" min="0" step="1" th:field="*{quantity}"><br>
 
-    <input type="submit" value="Save">
+    <input type="submit" value="Сохранить">
 </form>
 </body>
 </html>

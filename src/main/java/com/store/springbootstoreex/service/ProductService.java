@@ -34,8 +34,8 @@ public class ProductService {
         return repository.findAll();
     }
 
-    public Page<Product> getPaginatedProducts(int page, int size) {
-        return repository.findAll(PageRequest.of(page - 1, size));
+    public Page<Product> getPaginatedProducts(int page, int pageSize) {
+        return repository.findAll(PageRequest.of(page - 1, pageSize));
     }
 
 //    public List<Product> getProductsByCategoryId(long id) {
@@ -55,7 +55,7 @@ public class ProductService {
     }
 
     public void deleteProductById(Long id) {
-        cartService.getAllCarts().forEach(cart -> cart.getProducts().remove(getProductById(id))); // Перед удалением самого товара мы удаляем его из всех корзин пользователей
+        cartService.getAllCarts().forEach(cart -> cart.getProducts().remove(getProductById(id))); // Перед удалением самого товара мы удаляем его из корзин всех пользователей
         repository.deleteById(id);
     }
 }

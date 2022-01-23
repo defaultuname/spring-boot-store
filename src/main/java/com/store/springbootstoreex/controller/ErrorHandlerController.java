@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /*
-Контроллер, отвечающий за перехватку ошибок.
+    Контроллер, отвечающий за перехватку ошибок.
  */
 
 @ControllerAdvice

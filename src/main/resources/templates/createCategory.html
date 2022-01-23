@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Creating</title>
+    <title>Создание категории</title>
 </head>
 <body>
 <form method="post">
-    <label for="categoryName">Название категории: </label>
-    <input type="text" id="categoryName" name="categoryName" required><br>
+    <label for="categoryName">Наименование: </label>
+    <input type="text" id="categoryName" name="categoryName" min="1" max="32" required><br>
 
-    <input type="submit" value="Create category"><br>
+    <input type="submit" value="Создать"><br>
 </form>
 </body>
 </html>

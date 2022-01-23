@@ -17,7 +17,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
-@PreAuthorize("hasAuthority('ADMIN')")
+@PreAuthorize("hasAuthority('ADMIN')") // Доступ для пользователей с authority ADMIN
 public class AdminPanelController {
 
     private final CategoryService categoryService;

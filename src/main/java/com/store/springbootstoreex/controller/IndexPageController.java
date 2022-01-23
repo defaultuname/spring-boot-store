@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-
+/*
+    Контроллер отвечает за домашнюю страницу приложения.
+ */
 @Controller
-@PreAuthorize("hasAuthority('USER')")
+@PreAuthorize("hasAuthority('USER')") // Spring Security: доступен для авторизованных пользователей с authority USER
 public class IndexPageController {
 
     private final ProductService productService;
@@ -30,26 +32,26 @@ public class IndexPageController {
 
     @GetMapping({"/index", "/"})
     public String homepage(Model model) {
-        viewPaginated(model, 1);
+        viewPaginated(model, 1); // 1 - стартовая страница пагинации
         return "index";
     }
 
     @GetMapping("/search")
     public String homepageSearchByTitle(@RequestParam("title") String title, @RequestParam("category") String category, Model model) {
-        List<Product> productList = productService.getAllByCategoryAndTitle(category.trim(), title.trim());
-        model.addAttribute("productListSearched", productList);
+        List<Product> productList = productService.getAllByCategoryAndTitle(category, title.trim());   // Поиск продуктов. Метод trim() вызывается, чтобы
+        model.addAttribute("productListSearched", productList);                            // отсечь лишние проблемы у запрашиваемого title
         return "search";
     }
 
     @GetMapping("/{pageNo}")
-    public String viewPaginated(Model model, @PathVariable(value = "pageNo") int page) {
+    public String viewPaginated(Model model, @PathVariable(value = "pageNo") int page) { // Метод инкапсулирует логику, отвечающую за пагинацию
         List<Category> categoryList = categoryService.getAllCategories();
-        Page<Product> paginatedProducts = productService.getPaginatedProducts(page, 3);
-        List<Product> productList = paginatedProducts.getContent();
+        Page<Product> paginatedProducts = productService.getPaginatedProducts(page, 3); // pageSize - количество сущностей на одной странице
+        List<Product> productList = paginatedProducts.getContent(); // Лист сущностей с одной страницы
 
-        model.addAttribute("pageNo", page);
-        model.addAttribute("totalPages", paginatedProducts.getTotalPages());
-        model.addAttribute("productList", productList);
+        model.addAttribute("pageNo", page); // Номер страницы
+        model.addAttribute("totalPages", paginatedProducts.getTotalPages()); // Количество страниц
+        model.addAttribute("productPaginated", productList);
         model.addAttribute("categoryList", categoryList);
 
         return "index";

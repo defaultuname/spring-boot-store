@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-
+/*
+    Контроллер отвечает за секьюрити: авторизация и регистрация
+ */
 @Controller
 public class SecurityController {
 
@@ -25,15 +27,15 @@ public class SecurityController {
 
     @GetMapping("/login")
     public String getLoginPage(@RequestParam(value = "error", required = false) Boolean error, Model model) {
-        if (error != null) {
+        if (error != null) { // Если пользователь сделал что-то не так при попытке логина, мы получим параметр error
             model.addAttribute("msg", "Неверный email или пароль, либо такой аккаунт не существует");
-        }
+        } // Добавляем аттрибут с сообщением об ошибке, перенаправляем пользователя обратно на login.html, но уже с аттрибутом
         return "login";
     }
 
     @PostMapping("/logout")
     public String logout() {
-        return "login";
+        return "login"; // При логауте перекидываем пользователя на login.html
     }
 
     @GetMapping("/register")
@@ -47,7 +49,7 @@ public class SecurityController {
             return "register";
         }
 
-        userService.saveUser(user);
+        userService.saveUser(user); // При регистрации сохраняем нового юзера в БД
         return "redirect:/login";
     }
 }

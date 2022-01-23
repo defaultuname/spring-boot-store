@@ -2,24 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Login Customer</title>
+    <title>Логин</title>
 </head>
 <body>
-<button role="button" type="button" onclick="window.location.href='register'">Register</button>
-<h3 th:text="${msg}"></h3>
-<div class="container">
-    <form class="form-signin" method="post" action="/login">
-        <h2 class="form-signin-heading">Login</h2>
-        <p>
-            <label for="username">Email</label>
-            <input type="text" id="username" name="username" class="form-control" placeholder="Username" required>
-        </p>
-        <p>
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-        </p>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    </form>
-</div>
+<button role="button" type="button" onclick="window.location.href='register'">Не зарегистрированы?</button>
+<h3 th:text="${msg}"></h3><br>
+<form method="post" action="/login">
+    <h2>Логин</h2>
+    <p>
+        <label for="username">Эл.почта</label>
+        <input type="text" id="username" name="username" placeholder="Эл. почта" required>
+    </p>
+    <p>
+        <label for="password">Пароль</label>
+        <input type="password" id="password" name="password" placeholder="Пароль" required>
+    </p>
+    <button type="submit">Войти</button>
+</form>
 </body>
 </html>

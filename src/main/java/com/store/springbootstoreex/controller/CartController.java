@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 
 @Controller
@@ -32,7 +30,7 @@ public class CartController {
     }
 
     @GetMapping
-    public String cartView(Model model) {
+    public String cartView(Model model) { // Метод отвечает за показ самой корзины
         Cart cart = cartService.getLoggedUserCart();
         BigDecimal totalPrice = cartService.getTotalPriceCart();
 
@@ -44,14 +42,15 @@ public class CartController {
 
     @PostMapping("/{id}")
     public String addProdToCart(@PathVariable("id") Long id) {
-        Product product = productService.getProductById(id);
+        Product product = productService.getProductById(id); // Получем желаемый продукт по id и кладём в корзину
         cartService.addProductToCart(product);
         return "redirect:/index";
     }
 
     @PostMapping("/delete/{id}")
     public String deleteProductFromCart(@PathVariable Long id) {
-        cartService.deleteProductFromCart(productService.getProductById(id));
+        Product product = productService.getProductById(id); // Получем желаемый продукт по id и удаляем из корзины
+        cartService.deleteProductFromCart(product);
         return "redirect:/cart";
     }
 }

@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Home page</title>
+    <title>Spring shop</title>
 </head>
 <body>
 
-<button sec:authorize="hasAuthority('ADMIN')" role="button" type="button" onclick="window.location.href='admin'">Go to
-    admin panel
+<button sec:authorize="hasAuthority('ADMIN')" role="button" type="button" onclick="window.location.href='admin'">
+    Перейти в админ-панель  <!--  Кнопка видна только для юзеров с authority ADMIN  -->
 </button>
-<button role="button" type="button" onclick="window.location.href='cart'">Cart</button>
+<button role="button" type="button" onclick="window.location.href='cart'">Корзина</button>
 <br>
 <form th:action="@{/search}">
     <label for="category">Категория</label>
@@ -31,18 +31,16 @@
         <th>Изображение</th>
         <th>Категория</th>
         <th>Цена</th>
-        <th>Количество</th>
-        <th>Корзина</th>
+        <th></th>
     </tr>
-    <tr th:each="prod : ${productList}">
+    <tr th:each="prod : ${productPaginated}">
         <td><a th:text="${prod.title}" th:href="@{/products/{id}(id=${prod.id})}"></a></td>
         <td><img th:src="${prod.imageLocation}" height="200"/></td>
         <td th:text="${prod.category}"></td>
         <td th:text="${prod.price}"></td>
-        <td th:text="${prod.quantity}"></td>
         <td>
             <form method="post" th:action="@{/cart/{id}(id=${prod.id})}">
-                <input type="submit" value="Добавить">
+                <input type="submit" value="В корзину">
             </form>
         </td>
     </tr>
@@ -53,15 +51,15 @@
       <a th:if="${pageNo != i}" th:href="@{'/' + ${i}}">[[${i}]]</a>
       <span th:unless="${pageNo != i}">[[${i}]]</span></span>
 
-    <a th:if="${pageNo < totalPages}" th:href="@{'/' + ${pageNo + 1}}">Next</a>
-    <span th:unless="${pageNo < totalPages}">Next</span>
+    <a th:if="${pageNo < totalPages}" th:href="@{'/' + ${pageNo + 1}}">След.</a>
+    <span th:unless="${pageNo < totalPages}">След.</span>
 
-<!--    <a th:if="${pageNo > 0}" th:href="@{'/' - ${pageNo + 1}}">Previous</a>-->
-<!--    <span th:unless="${pageNo > 0}">Previous</span>-->
+    <!--    <a th:if="${pageNo > 0}" th:href="@{'/' - ${pageNo + 1}}">Previous</a>-->
+    <!--    <span th:unless="${pageNo > 0}">Previous</span>-->
 </div>
 </body>
 <br>
 <form method="post" th:action="@{/logout}">
-    <input type="submit" value="Log out">
+    <input type="submit" value="Выйти">
 </form>
 </html>

@@ -29,7 +29,7 @@ public class ReviewController {
 
     @PostMapping("/new")
     public String addComment(@Valid @ModelAttribute Review review) {
-        review.setAuthor(userService.getLoggedUser());
+        review.setAuthor(userService.getLoggedUser()); // Чтобы указать автора отзыва, получим его из сессии
         reviewService.saveComment(review);
         return "redirect:/index";
     }

@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Editing</title>
+    <title>Изменение категории</title>
 </head>
 <body>
 <form th:action="@{/category/edit/{id}(id=${categoryForm.id})}" th:object="${categoryForm}" method="post">
-    <label for="name">Category name: </label><br>
-    <input type="text" id="name" name="categoryName" th:field="*{categoryName}" required><br>
+    <label for="name">Наименование: </label><br>
+    <input type="text" id="name" name="categoryName" th:field="*{categoryName}" min="1" max="32" required><br>
 
-    <input type="submit" value="Save">
+    <input type="submit" value="Сохранить">
 </form>
 </body>
 </html>

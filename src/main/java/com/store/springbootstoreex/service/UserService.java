@@ -34,22 +34,22 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User getLoggedUser() {
-        return getUserByEmail(SecurityContextHolder
+    public User getLoggedUser() { // Получение залогиненного юзера
+        return getUserByEmail(SecurityContextHolder // Получаем из сессии его эл. почту, далее находим юзера по ней
                 .getContext().getAuthentication().getName());
     }
 
     public void saveUser(User user) {
-        userRepository.findByEmail(user.getEmail()).ifPresent(s -> {
+        userRepository.findByEmail(user.getEmail().toLowerCase()).ifPresent(s -> {
             throw new UserAlreadyExistsException(user.getEmail());
-        });
+        }); // Перед сохранением нового пользователя проверяем, не существует ли уже пользователь с такой эл. почтой
 
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword())); // И кодируем его пароль через BCrypt
         userRepository.save(user);
     }
 
-    public void editUser(User user) {
-        user.setPassword(getUserById(user.getId()).getPassword());
+    public void editUser(User user) { // Чтобы изменение существующего пользователя стало возможным, в методе убрана проверка на идентичную эл. почту.
+        user.setPassword(getUserById(user.getId()).getPassword()); // Пароль изменить невозможно из соображений безопасности. Просто оставляем его прежним.
         userRepository.save(user);
     }
 

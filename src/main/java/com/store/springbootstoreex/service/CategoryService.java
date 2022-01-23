@@ -33,7 +33,7 @@ public class CategoryService {
 
     public void deleteById(Long id) {
         if (!getCategoryById(id).getProducts().isEmpty())
-            throw new CategoryIsNotEmptyException(id); // Категория не может быть удалена, если в ней есть продукты
+            throw new CategoryIsNotEmptyException(id); // Категория не может быть удалена, если в ней есть товары
         categoryRepository.deleteById(id);
     }
 }

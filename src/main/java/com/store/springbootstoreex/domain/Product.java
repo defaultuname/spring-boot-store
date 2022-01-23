@@ -37,8 +37,8 @@ public class Product {
     @Min(value = 0, message = "quantity cant be less than 0!")
     private int quantity = 0;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
-    private List<Review> reviews;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL) // При удалении продукта также
+    private List<Review> reviews;                                                       // удаляем все обзоры на него
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "products")
     private List<Cart> productInCartsList;

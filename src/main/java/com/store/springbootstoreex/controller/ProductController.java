@@ -33,8 +33,8 @@ public class ProductController {
 
     @GetMapping("/new")
     public String createProduct(Model model) {
-        List<Category> categoryList = categoryService.getAllCategories();
-        model.addAttribute("categoryList", categoryList);
+        List<Category> categoryList = categoryService.getAllCategories(); // Получаем список всех категорий,
+        model.addAttribute("categoryList", categoryList);     // чтобы присвоить одну из них будущему продукту
         return "createProd";
     }
 
@@ -51,8 +51,8 @@ public class ProductController {
     @GetMapping("/edit/{id}")
     public String editProduct(@PathVariable("id") Long id, Model model) {
         Product product = productService.getProductById(id);
-        List<Category> categoryList = categoryService.getAllCategories();
-
+        List<Category> categoryList = categoryService.getAllCategories(); // Получаем список всех категорий, чтобы изменить
+                                                                          // её у продукта
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("productForm", product);
 
@@ -76,10 +76,10 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('USER')")
-    public String getOneProduct(@PathVariable Long id, Model model) {
+    @PreAuthorize("hasAuthority('USER')") // Получение информации о продукте могут выполнить и обычные пользователи
+    public String getOneProduct(@PathVariable Long id, Model model) { // Также на странице есть возможность оставлять и просматривать отзывы
         model.addAttribute("product", productService.getProductById(id));
-        model.addAttribute("reviews", reviewService.getCommentsByProductId(id));
+        model.addAttribute("reviews", reviewService.getCommentsByProductId(id)); // Получаем отзывы о конкретном товаре
         return "product";
     }
 }
