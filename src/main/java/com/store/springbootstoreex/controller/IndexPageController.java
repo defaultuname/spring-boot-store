@@ -5,10 +5,12 @@ import com.store.springbootstoreex.domain.Product;
 import com.store.springbootstoreex.service.CategoryService;
 import com.store.springbootstoreex.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -26,14 +28,9 @@ public class IndexPageController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping({"/index", "", "/"})
+    @GetMapping({"/index", "/"})
     public String homepage(Model model) {
-        List<Product> productList = productService.getAllProducts();
-        List<Category> categoryList = categoryService.getAllCategories();
-
-        model.addAttribute("productList", productList);
-        model.addAttribute("categoryList", categoryList);
-
+        viewPaginated(model, 1);
         return "index";
     }
 
@@ -42,5 +39,20 @@ public class IndexPageController {
         List<Product> productList = productService.getAllByCategoryAndTitle(category.trim(), title.trim());
         model.addAttribute("productListSearched", productList);
         return "search";
+    }
+
+    @GetMapping("/{pageNo}")
+    public String viewPaginated(Model model, @PathVariable(value = "pageNo") int page) {
+        List<Category> categoryList = categoryService.getAllCategories();
+        Page<Product> paginatedProducts = productService.getPaginatedProducts(page, 3);
+        List<Product> productList = paginatedProducts.getContent();
+
+        model.addAttribute("pageNo", page);
+        model.addAttribute("totalPages", paginatedProducts.getTotalPages());
+        model.addAttribute("totalItems", paginatedProducts.getTotalElements());
+        model.addAttribute("productList", productList);
+        model.addAttribute("categoryList", categoryList);
+
+        return "index";
     }
 }

@@ -4,6 +4,8 @@ import com.store.springbootstoreex.domain.Product;
 import com.store.springbootstoreex.exception.ProductNotFoundException;
 import com.store.springbootstoreex.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +30,10 @@ public class ProductService {
 
     public List<Product> getAllProducts() {
         return repository.findAll();
+    }
+
+    public Page<Product> getPaginatedProducts(int page, int size) {
+        return repository.findAll(PageRequest.of(page - 1, size));
     }
 
 //    public List<Product> getProductsByCategoryId(long id) {

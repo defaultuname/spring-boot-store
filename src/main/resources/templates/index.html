@@ -6,7 +6,9 @@
 </head>
 <body>
 
-<button sec:authorize="hasAuthority('ADMIN')" role="button" type="button" onclick="window.location.href='admin'">Go to admin panel</button>
+<button sec:authorize="hasAuthority('ADMIN')" role="button" type="button" onclick="window.location.href='admin'">Go to
+    admin panel
+</button>
 <button role="button" type="button" onclick="window.location.href='cart'">Cart</button>
 <br>
 <form th:action="@{/search}">
@@ -45,6 +47,18 @@
         </td>
     </tr>
 </table>
+
+<div th:if="${totalPages > 1}">
+    <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+      <a th:if="${pageNo != i}" th:href="@{'/' + ${i}}">[[${i}]]</a>
+      <span th:unless="${pageNo != i}">[[${i}]]</span></span>
+
+    <a th:if="${pageNo < totalPages}" th:href="@{'/' + ${pageNo + 1}}">Next</a>
+    <span th:unless="${pageNo < totalPages}">Next</span>
+
+<!--    <a th:if="${pageNo > 0}" th:href="@{'/' - ${pageNo + 1}}">Previous</a>-->
+<!--    <span th:unless="${pageNo > 0}">Previous</span>-->
+</div>
 </body>
 <br>
 <form method="post" th:action="@{/logout}">
