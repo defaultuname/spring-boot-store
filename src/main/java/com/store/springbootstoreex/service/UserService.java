@@ -49,7 +49,6 @@ public class UserService {
     }
 
     public void editUser(User user) { // Чтобы изменение существующего пользователя стало возможным, в методе убрана проверка на идентичную эл. почту.
-        user.setPassword(getUserById(user.getId()).getPassword()); // Пароль изменить невозможно из соображений безопасности. Просто оставляем его прежним.
         userRepository.save(user);
     }
 

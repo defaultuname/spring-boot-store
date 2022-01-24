@@ -33,7 +33,7 @@
 <br>
 <form th:action="@{/comments/new}" method="post">
     <h4>Хотите оставить отзыв?</h4>
-    <input type="hidden" th:value="${product.id}" name="product">
+    <input type="hidden" th:value="${product.id}" name="product" required>
     Оценка<br>
     <label>
         <input type="number" min="1" max="5" name="rating" required>

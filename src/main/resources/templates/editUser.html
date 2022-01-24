@@ -6,14 +6,15 @@
 </head>
 <body>
 <form th:action="@{/users/edit/{id}(id=${userForm.id})}" th:object="${userForm}" method="post">
-    <label for="email">Эл. почта: </label><br>
-    <input type="email" id="email" name="email" th:field="*{email}" min="1" max="255" required><br>
+    <input type="hidden" id="email" name="email" th:field="*{email}" min="1" max="255" required><br>
 
     <label for="first">Имя: </label><br>
     <input type="text" id="first" name="firstname" th:field="*{firstname}" min="1" max="100" required><br>
 
     <label for="last">Фамилия: </label><br>
     <input type="text" id="last" name="lastname" th:field="*{lastname}" min="1" max="100" required><br>
+
+    <input type="hidden" id="pass" th:field="*{password}" name="password" required><br>
 
     <label for="role">Роль: </label><br>
     <select id="role" name="role">

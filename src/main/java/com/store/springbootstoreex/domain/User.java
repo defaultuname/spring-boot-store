@@ -31,6 +31,7 @@ public class User {
     private String lastname;
 
     @Column(name = "PASSWORD", nullable = false)
+    @NotNull
     private String password;
 
     @Enumerated(value = EnumType.STRING)
@@ -139,20 +140,5 @@ public class User {
 
     public void setComments(List<Review> comments) {
         this.comments = comments;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", password='" + password + '\'' +
-                ", role=" + role +
-                ", status=" + status +
-                ", cart=" + cart +
-                ", comments=" + comments +
-                '}';
     }
 }
