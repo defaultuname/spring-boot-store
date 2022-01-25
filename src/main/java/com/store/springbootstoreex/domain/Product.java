@@ -46,14 +46,12 @@ public class Product {
     public Product() {
     }
 
-    public Product(String title, String imageLocation, Category category, BigDecimal price, int quantity, List<Review> reviews, List<Cart> productInCartsList) {
+    public Product(String title, String imageLocation, Category category, BigDecimal price, int quantity) {
         this.title = title;
         this.imageLocation = imageLocation;
         this.category = category;
         this.price = price;
         this.quantity = quantity;
-        this.reviews = reviews;
-        this.productInCartsList = productInCartsList;
     }
 
     public void addCommentToProduct(Review review) {

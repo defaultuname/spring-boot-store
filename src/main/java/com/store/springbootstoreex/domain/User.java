@@ -55,15 +55,13 @@ public class User {
     public User() {
     }
 
-    public User(String email, String firstname, String lastname, String password, Role role, Status status, Cart cart, List<Review> comments) {
+    public User(String email, String firstname, String lastname, String password, Role role, Status status) {
         this.email = email;
         this.firstname = firstname;
         this.lastname = lastname;
         this.password = password;
         this.role = role;
         this.status = status;
-        this.cart = cart;
-        this.comments = comments;
     }
 
     public Cart getCart() {
