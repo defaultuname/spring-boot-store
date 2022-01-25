@@ -2,7 +2,6 @@ package com.store.springbootstoreex.controller;
 
 import com.store.springbootstoreex.domain.Review;
 import com.store.springbootstoreex.service.ReviewService;
-import com.store.springbootstoreex.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -18,18 +17,15 @@ import javax.validation.Valid;
 @PreAuthorize("hasAuthority('USER')")
 public class ReviewController {
 
-    private final UserService userService;
     private final ReviewService reviewService;
 
     @Autowired
-    public ReviewController(UserService userService, ReviewService reviewService) {
-        this.userService = userService;
+    public ReviewController(ReviewService reviewService) {
         this.reviewService = reviewService;
     }
 
     @PostMapping("/new")
     public String addComment(@Valid @ModelAttribute Review review) {
-        review.setAuthor(userService.getLoggedUser()); // Чтобы указать автора отзыва, получим его из сессии
         reviewService.saveComment(review);
         return "redirect:/index";
     }

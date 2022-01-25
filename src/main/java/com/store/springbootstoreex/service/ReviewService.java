@@ -12,13 +12,16 @@ import java.util.List;
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
+    private final UserService userService;
 
     @Autowired
-    public ReviewService(ReviewRepository reviewRepository) {
+    public ReviewService(ReviewRepository reviewRepository, UserService userService) {
         this.reviewRepository = reviewRepository;
+        this.userService = userService;
     }
 
     public void saveComment(Review review) {
+        review.setAuthor(userService.getLoggedUser()); // Чтобы указать автора отзыва, получим его из сессии
         reviewRepository.save(review);
     }
 
