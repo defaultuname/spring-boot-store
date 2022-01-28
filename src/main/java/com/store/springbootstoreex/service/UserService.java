@@ -26,17 +26,17 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 
-    public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(email));
-    }
+//    public User getUserByEmail(String email) {
+//        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(email));
+//    }
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
     public User getLoggedUser() { // Получение залогиненного юзера
-        return getUserByEmail(SecurityContextHolder // Получаем из сессии его эл. почту, далее находим юзера по ней
-                .getContext().getAuthentication().getName());
+        String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName(); // Получаем из сессии эл. почту юзера
+        return userRepository.findByEmail(loggedUserEmail).orElseThrow(() -> new UsernameNotFoundException(loggedUserEmail));
     }
 
     public void saveUser(User user) {

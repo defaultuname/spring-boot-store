@@ -44,12 +44,6 @@ public class Review {
         this.rating = rating;
     }
 
-    public Review(String comment, User author, int rating) {
-        this.comment = comment;
-        this.author = author;
-        this.rating = rating;
-    }
-
     public Long getId() {
         return id;
     }

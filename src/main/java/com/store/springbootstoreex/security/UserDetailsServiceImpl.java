@@ -1,8 +1,7 @@
-package com.store.springbootstoreex.service;
+package com.store.springbootstoreex.security;
 
 import com.store.springbootstoreex.domain.User;
 import com.store.springbootstoreex.repository.UserRepository;
-import com.store.springbootstoreex.security.SecurityUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -37,18 +38,6 @@ public class ProductService {
     public Page<Product> getPaginatedProducts(int page, int pageSize) {
         return repository.findAll(PageRequest.of(page - 1, pageSize));
     }
-
-//    public List<Product> getProductsByCategoryId(long id) {
-//        return repository.findAllByCategoryId(id);
-//    }
-//
-//    public List<Product> getProductsByTitle(String name) {
-//        return repository.findAllByTitleContainsIgnoreCase(name);
-//    }
-//
-//    public List<Product> getProductsByCategoryName(String name) {
-//        return repository.findAllByCategory_CategoryName(name);
-//    }
 
     public List<Product> getAllByCategoryAndTitle(String category, String title) {
         return repository.findProductsByCategoryNameAndContainsTitle(category, title);
