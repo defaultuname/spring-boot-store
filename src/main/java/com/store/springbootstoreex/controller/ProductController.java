@@ -79,7 +79,7 @@ public class ProductController {
     @PreAuthorize("hasAuthority('USER')") // Получение информации о продукте могут выполнить и обычные пользователи
     public String getOneProduct(@PathVariable Long id, Model model) { // Также на странице есть возможность оставлять и просматривать отзывы
         model.addAttribute("product", productService.getProductById(id));
-        model.addAttribute("reviews", reviewService.getCommentsByProductId(id)); // Получаем отзывы о конкретном товаре
+        model.addAttribute("reviews", reviewService.getReviewsByProductId(id)); // Получаем отзывы о конкретном товаре
         return "product";
     }
 }

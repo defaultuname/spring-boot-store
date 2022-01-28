@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -47,11 +48,7 @@ class ProductServiceTest {
         Product found = productService.getProductById(1L);
 
         assertThat(found).isNotNull(); // Сохраняем объект, а потом получаем его. Проверяем на null и равенство полей
-        assertThat(found.getTitle()).isEqualTo(product.getTitle());
-        assertThat(found.getImageLocation()).isEqualTo(product.getImageLocation());
-        assertThat(found.getCategory()).isEqualTo(product.getCategory());
-        assertThat(found.getPrice()).isEqualTo(product.getPrice());
-        assertThat(found.getQuantity()).isEqualTo(product.getQuantity());
+        assertThat(found).isEqualTo(product);
     }
 
     @Test
@@ -75,14 +72,11 @@ class ProductServiceTest {
 
         when(productRepository.findAll()).thenReturn(products);
         List<Product> found = productService.getAllProducts();
+        verify(productRepository).findAll();
 
         assertThat(found).isNotNull();
         assertThat(found.size()).isEqualTo(1);
-        assertThat(found.get(0).getTitle()).isEqualTo(products.get(0).getTitle());
-        assertThat(found.get(0).getImageLocation()).isEqualTo(products.get(0).getImageLocation());
-        assertThat(found.get(0).getPrice()).isEqualTo(products.get(0).getPrice());
-        assertThat(found.get(0).getQuantity()).isEqualTo(products.get(0).getQuantity());
-        assertThat(found.get(0).getCategory()).isEqualTo(products.get(0).getCategory());
+        assertThat(found.get(0)).isEqualTo(products.get(0));
     }
 
     @Test
@@ -97,7 +91,7 @@ class ProductServiceTest {
 
         assertThat(found).isNotNull();
         assertThat(found.getTotalElements()).isEqualTo(1);
-        assertThat(found.getContent().get(0).getTitle()).isEqualTo(products.get(0).getTitle());
+        assertThat(found.getContent().get(0)).isEqualTo(products.get(0));
     }
 
     @Test
@@ -112,11 +106,7 @@ class ProductServiceTest {
 
         assertThat(found).isNotNull();
         assertThat(found.size()).isEqualTo(1);
-        assertThat(found.get(0).getTitle()).isEqualTo(products.get(0).getTitle());
-        assertThat(found.get(0).getImageLocation()).isEqualTo(products.get(0).getImageLocation());
-        assertThat(found.get(0).getPrice()).isEqualTo(products.get(0).getPrice());
-        assertThat(found.get(0).getQuantity()).isEqualTo(products.get(0).getQuantity());
-        assertThat(found.get(0).getCategory()).isEqualTo(products.get(0).getCategory());
+        assertThat(found.get(0)).isEqualTo(products.get(0));
     }
 
     @Test

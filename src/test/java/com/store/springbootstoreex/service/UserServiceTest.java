@@ -7,10 +7,8 @@ import com.store.springbootstoreex.exception.UserAlreadyExistsException;
 import com.store.springbootstoreex.exception.UserNotFoundException;
 import com.store.springbootstoreex.repository.UserRepository;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -23,6 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -56,10 +55,11 @@ class UserServiceTest {
 
         when(userRepository.findAll()).thenReturn(users);
         List<User> found = userService.getAllUsers();
+        verify(userRepository).findAll();
 
         assertThat(found).isNotNull();
         assertThat(found.size()).isEqualTo(3);
-        assertThat(found.get(0).getEmail()).isEqualTo("test@mail.com");
+        assertThat(found.get(0)).isEqualTo(user);
     }
 
     @Test
@@ -95,13 +95,14 @@ class UserServiceTest {
         User found = userService.getUserById(1L);
 
         assertThat(found).isNotNull();
-        assertThat(found.getEmail()).isEqualTo(user.getEmail());
+        assertThat(found).isEqualTo(user);
     }
 
     @Test
     void deleteUserById() {
-        User user = new User("test@mail.com", "admin", "admin", "12345", Role.USER, Status.ACTIVE);
-        when(userRepository.findById(1L)).thenReturn(Optional.of(user)).thenReturn(null);
         userService.deleteUserById(1L);
+        verify(userRepository).deleteById(1L);
+
+        assertThrows(UserNotFoundException.class, () -> userService.getUserById(1L));
     }
 }

@@ -2,9 +2,10 @@ package com.store.springbootstoreex.service;
 
 import com.store.springbootstoreex.domain.Cart;
 import com.store.springbootstoreex.domain.Product;
+import com.store.springbootstoreex.exception.CartNotFoundException;
+import com.store.springbootstoreex.exception.UserNotFoundException;
 import com.store.springbootstoreex.repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -26,9 +27,9 @@ public class CartService {
         cartRepository.save(cart);
     }
 
-//    public Cart getCartById(Long id) {
-//        return cartRepository.findById(id).orElseThrow(() -> new CartNotFoundException(id));
-//    }
+    public Cart getCartById(Long id) {
+        return cartRepository.findById(id).orElseThrow(() -> new CartNotFoundException(id));
+    }
 
     public List<Cart> getAllCarts() {
         return cartRepository.findAll();
@@ -39,7 +40,7 @@ public class CartService {
 //    }
 
     public Cart getCartByUserId(Long id) {
-        return cartRepository.findCartByUserId(id).orElseThrow(() -> new UsernameNotFoundException("User with id" + id + "not found"));
+        return cartRepository.findCartByUserId(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 
     public BigDecimal getTotalPriceCart() { // Получение итоговой цены корзины реализовано силами Stream API
@@ -54,11 +55,11 @@ public class CartService {
 
     public void addProductToCart(Product product) {
         getLoggedUserCart().getProducts().add(product); // Получаем список товаров из корзины пользователя, добавляем туда товар
-        saveCart(getLoggedUserCart()); // и сохраняем изменённую информацию
+        cartRepository.save(getLoggedUserCart()); // и сохраняем изменённую информацию
     }
 
     public void deleteProductFromCart(Product product) {
         getLoggedUserCart().getProducts().remove(product); // Получаем список товаров из корзины пользователя, удаляем оттуда товар
-        saveCart(getLoggedUserCart()); // и сохраняем изменённую информацию
+        cartRepository.save(getLoggedUserCart()); // и сохраняем изменённую информацию
     }
 }

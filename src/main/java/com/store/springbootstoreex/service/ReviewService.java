@@ -1,7 +1,7 @@
 package com.store.springbootstoreex.service;
 
 import com.store.springbootstoreex.domain.Review;
-import com.store.springbootstoreex.exception.CommentNotFoundException;
+import com.store.springbootstoreex.exception.ReviewNotFoundException;
 import com.store.springbootstoreex.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,24 +20,24 @@ public class ReviewService {
         this.userService = userService;
     }
 
-    public void saveComment(Review review) {
+    public void saveReview(Review review) {
         review.setAuthor(userService.getLoggedUser()); // Чтобы указать автора отзыва, получим его из сессии
         reviewRepository.save(review);
     }
 
-    public Review getCommentById(Long id) {
-        return reviewRepository.findById(id).orElseThrow(() -> new CommentNotFoundException(id));
+    public Review getReviewById(Long id) {
+        return reviewRepository.findById(id).orElseThrow(() -> new ReviewNotFoundException(id));
     }
 
-    public List<Review> getCommentsByProductId(Long id) {
+    public List<Review> getReviewsByProductId(Long id) {
         return reviewRepository.findAllByProductId(id);
     }
 
-    public List<Review> getAllComments() {
+    public List<Review> getAllReview() {
         return reviewRepository.findAll();
     }
 
-    public void deleteCommentById(Long id) {
+    public void deleteReviewById(Long id) {
         reviewRepository.deleteById(id);
     }
 }

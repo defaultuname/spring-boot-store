@@ -26,13 +26,13 @@ public class ReviewController {
 
     @PostMapping("/new")
     public String addComment(@Valid @ModelAttribute Review review) {
-        reviewService.saveComment(review);
+        reviewService.saveReview(review);
         return "redirect:/index";
     }
 
     @PostMapping("/delete/{id}")
     public String deleteComment(@PathVariable Long id) {
-        reviewService.deleteCommentById(id);
+        reviewService.deleteReviewById(id);
         return "redirect:/index";
     }
 }
