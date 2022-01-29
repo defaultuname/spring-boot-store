@@ -22,7 +22,7 @@ public class Product {
 
     @Column(name = "IMAGE_LOCATION", length = 384)
     @Size(max = 384, message = "title can not be empty or >384 characters long!")
-    private String imageLocation;
+    private String imageLocation; // Картинки в БД хранятся в виде ссылок из интернета
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID")
