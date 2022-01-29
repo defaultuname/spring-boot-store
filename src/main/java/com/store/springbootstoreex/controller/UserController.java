@@ -4,6 +4,8 @@ import com.store.springbootstoreex.domain.Role;
 import com.store.springbootstoreex.domain.Status;
 import com.store.springbootstoreex.domain.User;
 import com.store.springbootstoreex.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ import java.util.List;
 @RequestMapping("/users")
 @PreAuthorize("hasAuthority('ADMIN')")
 public class UserController {
+    private final static Logger logger = LoggerFactory.getLogger(UserController.class);
 
     private final UserService userService;
 
@@ -40,9 +43,11 @@ public class UserController {
     @PostMapping("/new")
     public String createUser(@Valid @ModelAttribute User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
+            logger.warn("Binding result has error!");
             return "createUser";
         }
 
+        logger.info("Register new user with email {} to database", user.getEmail());
         userService.saveUser(user);
         return "redirect:/admin";
     }
@@ -63,16 +68,19 @@ public class UserController {
     @PostMapping("/edit/{id}")
     public String editUser(@Valid @ModelAttribute User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
+            logger.warn("Binding result has error!");
             return "editUser";
         }
 
         userService.editUser(user);
+        logger.info("Edit user with email {}", user.getEmail());
         return "redirect:/admin";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         userService.deleteUserById(id);
+        logger.warn("Delete user with id {} from database", id);
         return "redirect:/admin";
     }
 }

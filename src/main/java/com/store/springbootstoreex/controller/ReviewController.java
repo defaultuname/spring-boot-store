@@ -2,6 +2,8 @@ package com.store.springbootstoreex.controller;
 
 import com.store.springbootstoreex.domain.Review;
 import com.store.springbootstoreex.service.ReviewService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import javax.validation.Valid;
 @RequestMapping("/comments")
 @PreAuthorize("hasAuthority('USER')")
 public class ReviewController {
+    private final static Logger logger = LoggerFactory.getLogger(ReviewController.class);
 
     private final ReviewService reviewService;
 
@@ -27,12 +30,14 @@ public class ReviewController {
     @PostMapping("/new")
     public String addComment(@Valid @ModelAttribute Review review) {
         reviewService.saveReview(review);
+        logger.info("Save new review to product {} to database", review.getProduct());
         return "redirect:/index";
     }
 
     @PostMapping("/delete/{id}")
     public String deleteComment(@PathVariable Long id) {
         reviewService.deleteReviewById(id);
+        logger.info("Delete review with id {} from database", id);
         return "redirect:/index";
     }
 }

@@ -6,6 +6,8 @@ import com.store.springbootstoreex.domain.User;
 import com.store.springbootstoreex.service.CategoryService;
 import com.store.springbootstoreex.service.ProductService;
 import com.store.springbootstoreex.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,7 @@ import java.util.List;
 @RequestMapping("/admin")
 @PreAuthorize("hasAuthority('ADMIN')") // Доступ для пользователей с authority ADMIN
 public class AdminPanelController {
+    private final static Logger logger = LoggerFactory.getLogger(AdminPanelController.class);
 
     private final CategoryService categoryService;
     private final ProductService productService;
@@ -41,6 +44,7 @@ public class AdminPanelController {
         model.addAttribute("productList", productList);
         model.addAttribute("userList", userList);
 
+        logger.info("Redirect to admin panel");
         return "admin";
     }
 }

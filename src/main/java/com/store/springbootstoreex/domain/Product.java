@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "PRODUCTS")
@@ -131,8 +132,19 @@ public class Product {
                 ", category=" + category +
                 ", price=" + price +
                 ", quantity=" + quantity +
-                ", reviews=" + reviews +
-                ", productInCartsList=" + productInCartsList +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return title.equals(product.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title);
     }
 }

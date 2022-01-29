@@ -4,6 +4,8 @@ import com.store.springbootstoreex.domain.Cart;
 import com.store.springbootstoreex.domain.Product;
 import com.store.springbootstoreex.service.CartService;
 import com.store.springbootstoreex.service.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,7 @@ import java.math.BigDecimal;
 @RequestMapping("/cart")
 @PreAuthorize("hasAuthority('USER')")
 public class CartController {
+    private final static Logger logger = LoggerFactory.getLogger(CartController.class);
 
     private final ProductService productService;
     private final CartService cartService;
@@ -37,6 +40,7 @@ public class CartController {
         model.addAttribute("cart", cart.getProducts());
         model.addAttribute("totalPrice", totalPrice);
 
+        logger.info("Redirect to /cart page");
         return "cart";
     }
 
@@ -44,6 +48,8 @@ public class CartController {
     public String addProdToCart(@PathVariable("id") Long id) {
         Product product = productService.getProductById(id); // Получем желаемый продукт по id и кладём в корзину
         cartService.addProductToCart(product);
+
+        logger.info("Add product with id {} to cart of user {}", product.getId(), cartService.getLoggedUserCart().getUser().getEmail());
         return "redirect:/index";
     }
 
@@ -51,6 +57,8 @@ public class CartController {
     public String deleteProductFromCart(@PathVariable Long id) {
         Product product = productService.getProductById(id); // Получем желаемый продукт по id и удаляем из корзины
         cartService.deleteProductFromCart(product);
+
+        logger.info("Delete product with id {} from cart of user {}", product.getId(), cartService.getLoggedUserCart().getUser().getEmail());
         return "redirect:/cart";
     }
 }

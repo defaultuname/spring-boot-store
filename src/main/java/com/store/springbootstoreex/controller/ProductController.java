@@ -5,6 +5,8 @@ import com.store.springbootstoreex.domain.Product;
 import com.store.springbootstoreex.service.CategoryService;
 import com.store.springbootstoreex.service.ProductService;
 import com.store.springbootstoreex.service.ReviewService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,7 @@ import java.util.List;
 @RequestMapping("/products")
 @PreAuthorize("hasAuthority('ADMIN')")
 public class ProductController {
+    private final static Logger logger = LoggerFactory.getLogger(ProductController.class);
 
     private final CategoryService categoryService;
     private final ProductService productService;
@@ -41,10 +44,12 @@ public class ProductController {
     @PostMapping("/new")
     public String createProduct(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
+            logger.warn("Binding result has error!");
             return "createProd";
         }
 
         productService.saveProduct(product);
+        logger.info("Save new product with name {} to database", product.getTitle());
         return "redirect:/admin";
     }
 
@@ -62,16 +67,19 @@ public class ProductController {
     @PostMapping("/edit/{id}")
     public String editProduct(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
+            logger.warn("Binding result has error!");
             return "editProd";
         }
 
         productService.saveProduct(product);
+        logger.info("Edit product with id {}", product.getId());
         return "redirect:/admin";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable("id") Long id) {
         productService.deleteProductById(id);
+        logger.info("Delete product with id {} from database", id);
         return "redirect:/admin";
     }
 
@@ -80,6 +88,7 @@ public class ProductController {
     public String getOneProduct(@PathVariable Long id, Model model) { // Также на странице есть возможность оставлять и просматривать отзывы
         model.addAttribute("product", productService.getProductById(id));
         model.addAttribute("reviews", reviewService.getReviewsByProductId(id)); // Получаем отзывы о конкретном товаре
+        logger.info("Get product with id {} and it reviews from database", id);
         return "product";
     }
 }

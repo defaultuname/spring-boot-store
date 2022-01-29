@@ -15,6 +15,7 @@
 - Пагинация
 - Error handling
 - Тесты
+- Логгирование
 ### В планах
 - Доработка Security
 - Добавление + улучшение существующих тестов
@@ -31,4 +32,5 @@
   <img src="src/main/resources/static/h2.png" height=30% width=30%>
 - Картинки в БД хранятся в виде ссылок из интернета. Просто скопируйте ссылку на картинку и вставьте её при создании товара  
   <img src="src/main/resources/static/urlcopy.png" height=30% width=30%>
+- **Все проблемы/баги приложения будут расписываться [здесь](https://github.com/defaultuname/spring-boot-store/issues)**
 

@@ -3,6 +3,7 @@ package com.store.springbootstoreex.domain;
 import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "CART")
@@ -51,5 +52,18 @@ public class Cart {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cart cart = (Cart) o;
+        return products.equals(cart.products);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(products);
     }
 }
