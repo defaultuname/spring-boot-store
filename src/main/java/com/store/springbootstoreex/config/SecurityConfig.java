@@ -31,24 +31,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/", "/register", "/error", "/login").permitAll()
-                .antMatchers("/h2-console/**", "/admin/**").hasAuthority(Role.ADMIN.name())
-                .anyRequest().authenticated()
+                .authorizeRequests() // Все реквесты должны быть авторизованы
+                .antMatchers("/", "/register", "/error", "/login").permitAll() // Данные URL доступны без авторизации
+                .antMatchers("/h2-console/**").hasAuthority(Role.ADMIN.name()) // Доступ к БД только админам
+                .anyRequest().authenticated() // Проверка прав
                 .and()
                 .headers().frameOptions().sameOrigin()
                 .and()
                 .formLogin()
-                .loginPage("/login").permitAll()
-                .defaultSuccessUrl("/index", true)
-                .failureUrl("/login?error=true")
+                .loginPage("/login").permitAll() // Логин-страница. Доступна для всех
+                .defaultSuccessUrl("/index", true) // Если логин успешный, переходим на /index
+                .failureUrl("/login?error=true") // Если нет — остаёмся на /login + добавляем параметр error
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST"))
-                .invalidateHttpSession(true)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST")) // Логаут происходит через POSt-метод
+                .invalidateHttpSession(true) // Инвалидируем сессию после логаута
                 .clearAuthentication(true)
-                .deleteCookies("JSESSIONID")
-                .logoutSuccessUrl("/login");
+                .deleteCookies("JSESSIONID") // Чистим куки
+                .logoutSuccessUrl("/login"); // И при успешном логауте переходим на /login
     }
 
     @Override
@@ -59,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     protected PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
-    }
+    } // Энкодер паролей
 
     @Bean
     protected DaoAuthenticationProvider daoAuthenticationProvider() {
