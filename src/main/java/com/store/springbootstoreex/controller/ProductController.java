@@ -77,7 +77,7 @@ public class ProductController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String deleteProduct(@PathVariable("id") Long id) {
         productService.deleteProductById(id);
         logger.info("Delete product with id {} from database", id);

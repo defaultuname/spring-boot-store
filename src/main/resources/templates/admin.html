@@ -16,8 +16,16 @@
     </tr>
     <tr th:each="cat : ${categoryList}">
         <td th:text="${cat.categoryName}"></td>
-        <td><a th:href="@{/category/edit/{id}(id=${cat.id})}">Изменить</a></td>
-        <td><a th:href="@{/category/delete/{id}(id=${cat.id})}">Удалить</a></td>
+        <td>
+            <form method="get" th:action="@{/category/edit/{id}(id=${cat.id})}">
+                <input type="submit" value="Изменить">
+            </form>
+        </td>
+        <td>
+            <form method="post" th:action="@{/category/delete/{id}(id=${cat.id})}">
+                <input type="submit" value="Удалить">
+            </form>
+        </td>
     </tr>
 </table>
 <br>
@@ -39,8 +47,16 @@
         <td th:text="${prod.category}"></td>
         <td th:text="${prod.price}"></td>
         <td th:text="${prod.quantity}"></td>
-        <td><a th:href="@{/products/edit/{id}(id=${prod.id})}">Изменить</a></td>
-        <td><a th:href="@{/products/delete/{id}(id=${prod.id})}">Удалить</a></td>
+        <td>
+            <form method="get" th:action="@{/products/edit/{id}(id=${prod.id})}">
+                <input type="submit" value="Изменить">
+            </form>
+        </td>
+        <td>
+            <form method="post" th:action="@{/products/delete/{id}(id=${prod.id})}">
+                <input type="submit" value="Удалить">
+            </form>
+        </td>
     </tr>
 </table>
 <br>
@@ -62,8 +78,16 @@
         <td th:text="${user.lastname}"></td>
         <td th:text="${user.role}"></td>
         <td th:text="${user.status}"></td>
-        <td><a th:href="@{/users/edit/{id}(id=${user.id})}">Изменить</a></td>
-        <td><a th:href="@{/users/delete/{id}(id=${user.id})}">Удалить</a></td>
+        <td>
+            <form method="get" th:action="@{/users/edit/{id}(id=${user.id})}">
+                <input type="submit" value="Изменить">
+            </form>
+        </td>
+        <td>
+            <form method="post" th:action="@{/users/delete/{id}(id=${user.id})}">
+                <input type="submit" value="Удалить">
+            </form>
+        </td>
     </tr>
 </table>
 <br>
