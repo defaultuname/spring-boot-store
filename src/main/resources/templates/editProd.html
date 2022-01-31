@@ -7,10 +7,10 @@
 <body>
 <form th:action="@{/products/edit/{id}(id=${productForm.id})}" th:object="${productForm}" method="post">
     <label for="title">Наименование: </label><br>
-    <input type="text" id="title" name="title" th:field="*{title}" min="1" max="255" required><br>
+    <input type="text" id="title" name="title" th:field="*{title}" minlength="1" maxlength="255" required><br>
 
     <label for="imageLocation">Изображение: </label><br>
-    <input type="text" id="imageLocation" name="imageLocation"  th:field="*{imageLocation}" max="384"><br>
+    <input type="text" id="imageLocation" name="imageLocation"  th:field="*{imageLocation}" maxlength="384"><br>
 
     <label for="category">Категория: </label><br>
     <select id="category" name="category">

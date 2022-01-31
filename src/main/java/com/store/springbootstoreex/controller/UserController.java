@@ -66,9 +66,12 @@ public class UserController {
     }
 
     @PostMapping("/edit/{id}")
-    public String editUser(@Valid @ModelAttribute User user, BindingResult bindingResult) {
+    public String editUser(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             logger.warn("Binding result has error!");
+            model.addAttribute("userForm", user);
+            model.addAttribute("roles", List.of(Role.values()));
+            model.addAttribute("statuses", List.of(Status.values()));
             return "editUser";
         }
 

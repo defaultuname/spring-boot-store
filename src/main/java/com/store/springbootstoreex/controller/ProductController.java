@@ -65,9 +65,10 @@ public class ProductController {
     }
 
     @PostMapping("/edit/{id}")
-    public String editProduct(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult) {
+    public String editProduct(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             logger.warn("Binding result has error!");
+            model.addAttribute("productForm", product);
             return "editProd";
         }
 

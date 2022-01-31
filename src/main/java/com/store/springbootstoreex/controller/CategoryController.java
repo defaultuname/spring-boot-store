@@ -53,9 +53,10 @@ public class CategoryController {
     }
 
     @PostMapping("/edit/{id}")
-    public String editCategory(@Valid @ModelAttribute Category category, BindingResult bindingResult) {
+    public String editCategory(@Valid @ModelAttribute Category category, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             logger.warn("Binding result has error!");
+            model.addAttribute("categoryForm", category);
             return "editCategory";
         }
 
