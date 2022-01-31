@@ -39,7 +39,7 @@
         <td th:text="${prod.categoryName}"></td>
         <td th:text="${prod.price}"></td>
         <td>
-            <form method="post" th:action="@{/cart/{id}(id=${prod.id})}">
+            <form method="post" th:action="@{/cart/new/{id}(id=${prod.id})}">
                 <input type="submit" value="В корзину">
             </form>
         </td>

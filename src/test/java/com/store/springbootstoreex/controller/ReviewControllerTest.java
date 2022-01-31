@@ -4,7 +4,6 @@ import com.store.springbootstoreex.domain.Product;
 import com.store.springbootstoreex.domain.Review;
 import com.store.springbootstoreex.domain.User;
 import com.store.springbootstoreex.service.ReviewService;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -32,9 +31,12 @@ class ReviewControllerTest {
     @Test
     void addComment() throws Exception {
         Review review = new Review("test", new User(), new Product(), 4);
+        // Тесты POST-запросов
         this.mockMvc.perform(post("/comments/new")
                         .flashAttr("review", review))
-                .andExpect(view().name("redirect:/index"));
+                .andExpectAll(
+                        status().is3xxRedirection(),
+                        view().name("redirect:/index"));
 
         verify(reviewService, times(1)).saveReview(review);
 

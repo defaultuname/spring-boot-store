@@ -44,12 +44,12 @@ public class CartController {
         return "cart";
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/new/{id}")
     public String addProdToCart(@PathVariable("id") Long id) {
         Product product = productService.getProductById(id); // Получем желаемый продукт по id и кладём в корзину
         cartService.addProductToCart(product);
 
-        logger.info("Add product with id {} to cart of user {}", product.getId(), cartService.getLoggedUserCart().getUser().getEmail());
+        logger.info("Add product with id {} to cart", product.getId());
         return "redirect:/index";
     }
 
@@ -58,7 +58,7 @@ public class CartController {
         Product product = productService.getProductById(id); // Получем желаемый продукт по id и удаляем из корзины
         cartService.deleteProductFromCart(product);
 
-        logger.info("Delete product with id {} from cart of user {}", product.getId(), cartService.getLoggedUserCart().getUser().getEmail());
+        logger.info("Delete product with id {} from cart", product.getId());
         return "redirect:/cart";
     }
 }
