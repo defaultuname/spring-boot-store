@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,12 +30,19 @@ public class ReviewController {
     }
 
     @PostMapping("/new")
-    public String addComment(@Valid @ModelAttribute Review review) {
+    public String addComment(@Valid @ModelAttribute Review review, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            logger.warn("Binding result has error! " + bindingResult.getFieldError());
+            model.addAttribute("msg", "Произошла ошибка при добавлении отзыва");
+            return "error/500";
+        }
+
         reviewService.saveReview(review);
         logger.info("Save new review to product {} to database", review.getProduct());
         return "redirect:/index";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/delete/{id}")
     public String deleteComment(@PathVariable Long id) {
         reviewService.deleteReviewById(id);

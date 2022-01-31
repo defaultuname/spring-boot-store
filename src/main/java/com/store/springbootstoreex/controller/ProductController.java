@@ -42,9 +42,9 @@ public class ProductController {
     }
 
     @PostMapping("/new")
-    public String createProduct(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult) {
+    public String createProduct(@Valid @ModelAttribute Product product, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            logger.warn("Binding result has error!");
+            logger.warn("Binding result has error! " + bindingResult.getFieldError());
             return "createProd";
         }
 
@@ -65,9 +65,9 @@ public class ProductController {
     }
 
     @PostMapping("/edit/{id}")
-    public String editProduct(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult, Model model) {
+    public String editProduct(@Valid @ModelAttribute Product product, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            logger.warn("Binding result has error!");
+            logger.warn("Binding result has error! " + bindingResult.getFieldError());
             model.addAttribute("productForm", product);
             return "editProd";
         }
@@ -85,7 +85,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('USER')") // Получение информации о продукте могут выполнить и обычные пользователи
+    @PreAuthorize("hasAuthority('USER')") // Получение информации о товаре могут выполнить и обычные пользователи
     public String getOneProduct(@PathVariable Long id, Model model) { // Также на странице есть возможность оставлять и просматривать отзывы
         model.addAttribute("product", productService.getProductById(id));
         model.addAttribute("reviews", reviewService.getReviewsByProductId(id)); // Получаем отзывы о конкретном товаре

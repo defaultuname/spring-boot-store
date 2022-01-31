@@ -50,7 +50,7 @@ public class SecurityController {
     @PostMapping("/register")
     public String registerPost(@Valid @ModelAttribute User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            logger.warn("Binding result has error!");
+            logger.warn("Binding result has error! " + bindingResult.getFieldError());
             return "register";
         }
 

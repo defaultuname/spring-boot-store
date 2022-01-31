@@ -36,7 +36,7 @@ public class CategoryController {
     @PostMapping("/new")
     public String createCategory(@Valid @ModelAttribute Category category, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            logger.warn("Binding result has error!");
+            logger.warn("Binding result has error! " + bindingResult.getFieldError());
             return "createCategory";
         }
 
@@ -55,7 +55,7 @@ public class CategoryController {
     @PostMapping("/edit/{id}")
     public String editCategory(@Valid @ModelAttribute Category category, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            logger.warn("Binding result has error!");
+            logger.warn("Binding result has error! " + bindingResult.getFieldError());
             model.addAttribute("categoryForm", category);
             return "editCategory";
         }

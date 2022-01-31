@@ -36,7 +36,7 @@
     <tr th:each="prod : ${productPaginated}">
         <td><a th:text="${prod.title}" th:href="@{/products/{id}(id=${prod.id})}"></a></td>
         <td><img th:src="${prod.imageLocation}" height="200"/></td>
-        <td th:text="${prod.category}"></td>
+        <td th:text="${prod.categoryName}"></td>
         <td th:text="${prod.price}"></td>
         <td>
             <form method="post" th:action="@{/cart/{id}(id=${prod.id})}">

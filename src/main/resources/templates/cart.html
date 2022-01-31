@@ -22,7 +22,7 @@
     <tr th:each="cart : ${cart}">
         <td th:text="${cart.title}"></td>
         <td><img th:src="${cart.imageLocation}" height="200"/></td>
-        <td th:text="${cart.category}"></td>
+        <td th:text="${cart.categoryName}"></td>
         <td th:text="${cart.price}"></td>
         <td>
             <form method="post" th:action="@{/cart/delete/{id}(id=${cart.id})}">

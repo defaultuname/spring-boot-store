@@ -43,7 +43,7 @@ public class UserController {
     @PostMapping("/new")
     public String createUser(@Valid @ModelAttribute User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            logger.warn("Binding result has error!");
+            logger.warn("Binding result has error! " + bindingResult.getFieldError());
             return "createUser";
         }
 
@@ -68,7 +68,7 @@ public class UserController {
     @PostMapping("/edit/{id}")
     public String editUser(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            logger.warn("Binding result has error!");
+            logger.warn("Binding result has error! " + bindingResult.getFieldError());
             model.addAttribute("userForm", user);
             model.addAttribute("roles", List.of(Role.values()));
             model.addAttribute("statuses", List.of(Status.values()));
