@@ -12,18 +12,16 @@
         <th>Изображение</th>
         <th>Категория</th>
         <th>Цена</th>
-        <th>Количество</th>
-        <th>Корзина</th>
+        <th></th>
     </tr>
     <tr th:each="prod : ${product}">
         <td th:text="${prod.title}"></td>
         <td><img th:src="${prod.imageLocation}" height="200"/></td>
         <td th:text="${prod.categoryName}"></td>
-        <td th:text="${prod.price}"></td>
-        <td th:text="${prod.quantity}"></td>
+        <td th:text="${prod.quantity != 0} ? ${prod.price} : 'Нет в наличии'"></td>
         <td>
-            <form method="post" th:action="@{/cart/{id}(id=${prod.id})}">
-                <input type="submit" value="Добавить">
+            <form method="post" th:action="@{/cart/new/{id}(id=${prod.id})}" th:if="${prod.quantity > 0}">
+                <input type="submit" value="В корзину">
             </form>
         </td>
     </tr>

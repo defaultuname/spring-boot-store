@@ -20,7 +20,7 @@
         <th></th>
     </tr>
     <tr th:each="cart : ${cart}">
-        <td th:text="${cart.title}"></td>
+        <td><a th:text="${cart.title}" th:href="@{/products/{id}(id=${cart.id})}"></a></td>
         <td><img th:src="${cart.imageLocation}" height="200"/></td>
         <td th:text="${cart.categoryName}"></td>
         <td th:text="${cart.price}"></td>

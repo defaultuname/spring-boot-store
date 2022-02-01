@@ -6,6 +6,7 @@
 </head>
 <body>
 <h2>Админ-панель</h2>
+<button role="button" type="button" onclick="window.location.href='index'">На главную</button>
 <h3>Управление категориями</h3>
 <button role="button" type="button" onclick="window.location.href='/category/new'">Создать категорию</button>
 <table>
@@ -42,7 +43,7 @@
         <th></th>
     </tr>
     <tr th:each="prod : ${productList}">
-        <td th:text="${prod.title}"></td>
+        <td><a th:text="${prod.title}" th:href="@{/products/{id}(id=${prod.id})}"></a></td>
         <td><img th:src="${prod.imageLocation}" height="200"/></td>
         <td th:text="${prod.categoryName}"></td>
         <td th:text="${prod.price}"></td>

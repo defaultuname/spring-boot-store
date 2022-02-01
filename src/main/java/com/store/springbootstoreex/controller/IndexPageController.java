@@ -38,8 +38,8 @@ public class IndexPageController {
 
     @GetMapping("/search")
     public String homepageSearchByTitle(@RequestParam("title") String title, @RequestParam("category") String category, Model model) {
-        List<Product> productList = productService.getAllByCategoryAndTitle(category, title.trim());   // Поиск продуктов. Метод trim() вызывается, чтобы
-        model.addAttribute("productListSearched", productList);                            // отсечь лишние проблемы у запрашиваемого title
+        List<Product> productList = productService.getAllByCategoryAndTitle(category, title);
+        model.addAttribute("productListSearched", productList);
         return "search";
     }
 

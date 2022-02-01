@@ -33,7 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests() // Все реквесты должны быть авторизованы
                 .antMatchers("/", "/register", "/error", "/login").permitAll() // Данные URL доступны без авторизации
-                .antMatchers("/h2-console/**").hasAuthority(Role.ADMIN.name()) // Доступ к БД только админам
+//                .antMatchers("/h2-console/**").hasAuthority(Role.ADMIN.name()) // Доступ к БД только админам
+                .antMatchers("/h2-console/**").permitAll() // Доступ к БД только админам
                 .anyRequest().authenticated() // Проверка прав
                 .and()
                 .headers().frameOptions().sameOrigin()

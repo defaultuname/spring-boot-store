@@ -37,9 +37,9 @@
         <td><a th:text="${prod.title}" th:href="@{/products/{id}(id=${prod.id})}"></a></td>
         <td><img th:src="${prod.imageLocation}" height="200"/></td>
         <td th:text="${prod.categoryName}"></td>
-        <td th:text="${prod.price}"></td>
+        <td th:text="${prod.quantity != 0} ? ${prod.price} : 'Нет в наличии'"></td>
         <td>
-            <form method="post" th:action="@{/cart/new/{id}(id=${prod.id})}">
+            <form method="post" th:action="@{/cart/new/{id}(id=${prod.id})}" th:if="${prod.quantity > 0}">
                 <input type="submit" value="В корзину">
             </form>
         </td>
@@ -51,11 +51,8 @@
       <a th:if="${pageNo != i}" th:href="@{'/' + ${i}}">[[${i}]]</a>
       <span th:unless="${pageNo != i}">[[${i}]]</span></span>
 
-    <a th:if="${pageNo < totalPages}" th:href="@{'/' + ${pageNo + 1}}">След.</a>
-    <span th:unless="${pageNo < totalPages}">След.</span>
-
-    <!--    <a th:if="${pageNo > 0}" th:href="@{'/' - ${pageNo + 1}}">Previous</a>-->
-    <!--    <span th:unless="${pageNo > 0}">Previous</span>-->
+    <!--    <a th:if="${pageNo < totalPages}" th:href="@{'/' + ${pageNo + 1}}">След.</a>-->
+    <!--    <span th:unless="${pageNo < totalPages}">След.</span>-->
 </div>
 </body>
 <br>

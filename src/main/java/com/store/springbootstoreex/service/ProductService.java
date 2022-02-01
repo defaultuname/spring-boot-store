@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -40,8 +39,8 @@ public class ProductService {
     }
 
     public List<Product> getAllByCategoryAndTitle(String category, String title) {
-        return repository.findProductsByCategoryNameAndContainsTitle(category, title);
-    }
+        return repository.findProductsByCategoryNameAndContainsTitle(category, title.trim()); // Метод trim() вызывается, чтобы
+    }                                                                              // отсечь лишние проблемы у запрашиваемого title
 
     public void deleteProductById(Long id) {
         cartService.getAllCarts().forEach(cart -> cart.getProducts().remove(getProductById(id))); // Перед удалением самого товара мы удаляем его из корзин всех пользователей
