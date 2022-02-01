@@ -54,7 +54,7 @@ public class CartController {
     }
 
     @PostMapping("/delete/{id}")
-    public String deleteProductFromCart(@PathVariable Long id) {
+    public String deleteProductFromCart(@PathVariable("id") Long id) {
         Product product = productService.getProductById(id); // Получем желаемый продукт по id и удаляем из корзины
         cartService.deleteProductFromCart(product);
 

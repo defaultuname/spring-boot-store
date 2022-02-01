@@ -44,7 +44,7 @@ public class ReviewController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/delete/{id}")
-    public String deleteComment(@PathVariable Long id) {
+    public String deleteComment(@PathVariable("id") Long id) {
         reviewService.deleteReviewById(id);
         logger.info("Delete review with id {} from database", id);
         return "redirect:/index";

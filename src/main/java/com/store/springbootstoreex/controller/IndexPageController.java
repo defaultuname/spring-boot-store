@@ -44,7 +44,7 @@ public class IndexPageController {
     }
 
     @GetMapping("/{pageNo}")
-    public String viewPaginated(@PathVariable(value = "pageNo") int page, Model model) { // Метод инкапсулирует логику, отвечающую за пагинацию
+    public String viewPaginated(@PathVariable("pageNo") int page, Model model) { // Метод инкапсулирует логику, отвечающую за пагинацию
         List<Category> categoryList = categoryService.getAllCategories();
         Page<Product> paginatedProducts = productService.getPaginatedProducts(page, 3); // pageSize - количество сущностей на одной странице
         List<Product> productList = paginatedProducts.getContent(); // Лист сущностей с одной страницы

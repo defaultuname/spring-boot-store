@@ -86,7 +86,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('USER')") // Получение информации о товаре могут выполнить и обычные пользователи
-    public String getOneProduct(@PathVariable Long id, Model model) { // Также на странице есть возможность оставлять и просматривать отзывы
+    public String getOneProduct(@PathVariable("id") Long id, Model model) { // Также на странице есть возможность оставлять и просматривать отзывы
         model.addAttribute("product", productService.getProductById(id));
         model.addAttribute("reviews", reviewService.getReviewsByProductId(id)); // Получаем отзывы о конкретном товаре
         logger.info("Get product with id {} and it reviews from database", id);
