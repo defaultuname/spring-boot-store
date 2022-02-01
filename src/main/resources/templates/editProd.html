@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Изменение товара</title>
+    <link rel="icon" href="data:,">
 </head>
 <body>
 <form th:action="@{/products/edit/{id}(id=${productForm.id})}" th:object="${productForm}" method="post">
