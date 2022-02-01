@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Изменение пользователя</title>
+    <link rel="icon" href="data:,">
 </head>
 <body>
 <form th:action="@{/users/edit/{id}(id=${userForm.id})}" th:object="${userForm}" method="post">
