@@ -5,6 +5,8 @@ import com.store.springbootstoreex.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,6 +37,11 @@ public class SecurityController {
             logger.warn("Error during authorization");
             model.addAttribute("msg", "Неверный email или пароль, либо такой аккаунт не существует");
         } // Добавляем аттрибут с сообщением об ошибке, перенаправляем пользователя обратно на login.html, но уже с аттрибутом
+        if (!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
+            logger.warn("Error during authorization");
+            model.addAttribute("msg", "Вы уже авторизованы");
+            return "error/500";
+        }
         return "login";
     }
 
@@ -44,7 +51,13 @@ public class SecurityController {
     }
 
     @GetMapping("/register")
-    public String register() {
+    public String register(Model model) {
+        if (!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
+            logger.warn("Error during authorization");
+            model.addAttribute("msg", "Вы уже авторизованы");
+            return "error/500";
+        }
+
         return "register";
     }
 
