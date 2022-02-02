@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Товары</title>
-    <link rel="icon" href="data:,">
+<head th:replace="fragments/header :: header">
 </head>
 <body>
+<link href="../static/css/search.css" th:href="@{/css/search.css}" rel="stylesheet"/>
+<button role="button" type="button" onclick="location.href='/index'" class="main">На главную</button>
 <h2>Результаты поиска</h2>
 <table>
     <tr>
         <th>Наименование</th>
-        <th>Изображение</th>
-        <th>Категория</th>
+        <th></th>
         <th>Цена</th>
+        <th></th>
     </tr>
-    <tr th:each="prod : ${productListSearched}">
-        <td><a th:text="${prod.title}" th:href="@{/products/{id}(id=${prod.id})}"></a></td>
+    <tr th:each="prod : ${productListSearched}" class="product">
+        <td><a th:text="${prod.title}" th:href="@{/products/{id}(id=${prod.id})}" class="title"></a></td>
         <td><img th:src="${prod.imageLocation}" height="200"/></td>
-        <td th:text="${prod.categoryName}"></td>
         <td th:text="${prod.quantity != 0} ? ${prod.price} : 'Нет в наличии'"></td>
+        <td>
+            <form method="post" th:action="@{/cart/new/{id}(id=${prod.id})}" th:if="${prod.quantity > 0}">
+                <input type="submit" value="В корзину" class="button">
+            </form>
+        </td>
     </tr>
 </table>
-
-<button role="button" type="button" onclick="window.location.href='index'">На главную</button>
+<button role="button" type="button" onclick="location.href='/index'" class="main">На главную</button>
 </body>
 </html>

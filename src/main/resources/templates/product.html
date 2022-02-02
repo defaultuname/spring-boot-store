@@ -1,67 +1,48 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-    <meta charset="UTF-8">
-    <title>Информация о товаре</title>
-    <link rel="icon" href="data:,">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/header :: header">
 </head>
 <body>
+<link href="../static/css/product.css" th:href="@{/css/product.css}" rel="stylesheet"/>
 <h1>Информация о товаре</h1>
-<table>
-    <tr>
-        <th>Наименование</th>
-        <th>Изображение</th>
-        <th>Категория</th>
-        <th>Цена</th>
-        <th></th>
-    </tr>
-    <tr th:each="prod : ${product}">
-        <td th:text="${prod.title}"></td>
-        <td><img th:src="${prod.imageLocation}" height="200"/></td>
-        <td th:text="${prod.categoryName}"></td>
-        <td th:text="${prod.quantity != 0} ? ${prod.price} : 'Нет в наличии'"></td>
-        <td>
-            <form method="post" th:action="@{/cart/new/{id}(id=${prod.id})}" th:if="${prod.quantity > 0}">
-                <input type="submit" value="В корзину">
-            </form>
-        </td>
-    </tr>
-</table>
-<br>
-<input type="button" value="Назад" onclick="history.back()">
-<br>
+<div th:each="prod : ${product}" class="product">
+    <p class="title" th:text="${prod.title}"></p>
+    <p><img th:src="${prod.imageLocation}" height="200"/></p>
+    <p th:text="${prod.quantity != 0} ? ${prod.price} : 'Нет в наличии'"></p>
+    <p>
+    <form method="post" th:action="@{/cart/new/{id}(id=${prod.id})}" th:if="${prod.quantity > 0}">
+        <input type="submit" value="В корзину" class="cart">
+    </form>
+    <input type="button" value="Назад" onclick="history.back()">
+</div>
+<hr>
 <form th:action="@{/comments/new}" method="post">
     <h4>Хотите оставить отзыв?</h4>
     <input type="hidden" th:value="${product.id}" name="product" required>
-    Оценка<br>
+    Оценка:
     <label>
-        <input type="number" min="1" max="5" name="rating" required>
-    </label><br><br>
+        <input type="number" min="1" max="5" name="rating" required class="rating">
+    </label><br>
     Комментарий<Br>
     <label>
-        <textarea maxlength="384" cols="50" rows="4" placeholder="Не более 384 символов" name="comment"></textarea>
+        <textarea maxlength="384" cols="50" rows="4" placeholder="Не более 384 символов" name="comment"
+                  class="comment"></textarea>
     </label><br><br>
-    <input type="submit" value="Отправить">
+    <input type="submit" value="Отправить" class="send">
     <input type="reset" value="Очистить">
 </form>
 <h2>Отзывы:</h2>
-<table>
-    <tr>
-        <th>Автор</th>
-        <th>Оценка</th>
-        <th>Комментарий</th>
-        <th sec:authorize="hasAuthority('ADMIN')"></th>
-    </tr>
-    <tr th:each="rev : ${reviews}">
-        <td th:text="${rev.author.firstname}"></td>
-        <td th:text="${rev.rating}"></td>
-        <td th:text="${rev.comment}"></td>
-        <td sec:authorize="hasAuthority('ADMIN')">
-            <form method="post" th:action="@{/comments/delete/{id}(id=${rev.id})}">
-                <input type="submit" value="Удалить">
+<p th:if="${reviews.size()==0}" class="noreviews">Никто не написал отзыв. Станьте первым</p>
+<div th:each="rev : ${reviews}">
+    <div th:if="${reviews.size()>0}" class="reviews">
+        <div class="author">
+            <p>[[${rev.author.firstname}]] оценил товар на [[${rev.rating}]]</p>
+            <form method="post" th:action="@{/comments/delete/{id}(id=${rev.id})}" sec:authorize="hasAuthority('ADMIN')">
+                <input type="submit" value="Удалить" class="delete">
             </form>
-        </td>
-    </tr>
-</table>
+        </div>
+        <p th:text="${rev.comment}" class="revtext"></p>
+    </div>
+</div>
 </body>
 </html>

@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Не найдено</title>
-    <link rel="icon" href="data:,">
+<head th:replace="fragments/header :: header">
 </head>
 <body>
+<link href="/static/css/error.css" th:href="@{/css/error.css}" rel="stylesheet"/>
 <h1>Что-то пошло не по плану! </h1>
-<h2>На сервере произошла ошибка</h2>
-<h4 th:text="${msg}"></h4>
+<h3 th:text="${msg}"></h3>
 <button role="button" type="button" onclick="history.back()">Назад</button>
 <button role="button" type="button" onclick="location.href='/index'">На главную</button>
 </body>

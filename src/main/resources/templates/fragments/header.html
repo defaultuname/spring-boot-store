@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="header">
+    <meta charset="UTF-8">
+    <title>Spring shop</title>
+    <link rel="icon" href="data:,">
+    <link href="/static/css/header.css" th:href="@{/css/header.css}" rel="stylesheet"/>
+</head>
+<body>
+<div th:fragment="header" class="header">
+<h2>techno shop project by <a th:text="defuname" href="https://github.com/defaultuname" class="link"></a></h2>
+<button sec:authorize="hasAuthority('ADMIN')" role="button" type="button" onclick="location.href='/admin'">
+    Админ-панель  <!--  Кнопка видна только для юзеров с authority ADMIN  -->
+</button>
+<button role="button" type="button" onclick="location.href='/cart'">Корзина</button>
+<form method="post" th:action="@{/logout}">
+    <input type="submit" value="Выйти" class="logout">
+</form>
+</div>
+</body>
+</html>

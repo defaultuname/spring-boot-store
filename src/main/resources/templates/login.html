@@ -4,12 +4,13 @@
     <meta charset="utf-8">
     <title>Логин</title>
     <link rel="icon" href="data:,">
+    <link href="/css/login.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-<button role="button" type="button" onclick="window.location.href='register'">Не зарегистрированы?</button>
-<h3 th:text="${msg}"></h3><br>
+<h2>techno shop project by <a th:text="defuname" href="https://github.com/defaultuname" class="link"></a></h2>
+<button role="button" type="button" onclick="window.location.href='register'" class="button">Не зарегистрированы?</button>
 <form method="post" action="/login">
-    <h2>Логин</h2>
+    <h3>Логин</h3>
     <p>
         <label for="username">Эл.почта</label>
         <input type="text" id="username" name="username" placeholder="Эл. почта" maxlength="255" required>
@@ -18,7 +19,8 @@
         <label for="password">Пароль</label>
         <input type="password" id="password" name="password" placeholder="Пароль" required>
     </p>
-    <button type="submit">Войти</button>
+    <button type="submit" class="save">Войти</button>
 </form>
+<h3 th:text="${msg}"></h3><br>
 </body>
 </html>

@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Не найдено</title>
-    <link rel="icon" href="data:,">
+<head th:replace="fragments/header :: header">
 </head>
 <body>
-<h2>Страница не найдена</h2>
+<link href="/static/css/error.css" th:href="@{/css/error.css}" rel="stylesheet"/>
+<h1>Страница не найдена</h1>
 <h3>Запрашиваемая страница не существует</h3>
 <h4 th:text="${msg}"></h4>
 <button role="button" type="button" onclick="history.back()">Назад</button>

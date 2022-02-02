@@ -1,18 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-    <meta charset="UTF-8">
-    <title>Spring shop</title>
-    <link rel="icon" href="data:,">
-    <link href="../static/css/index.css" th:href="@{/css/index.css}" rel="stylesheet"/>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments/header :: header">
 </head>
 <body>
-<h2>techno shop project by <a th:text="defuname" href="https://github.com/defaultuname" class="link"></a></h2>
-<button sec:authorize="hasAuthority('ADMIN')" role="button" type="button" onclick="window.location.href='admin'">
-    Перейти в админ-панель  <!--  Кнопка видна только для юзеров с authority ADMIN  -->
-</button>
-<button role="button" type="button" onclick="window.location.href='cart'">Корзина</button>
-<br>
+<link href="../static/css/index.css" th:href="@{/css/index.css}" rel="stylesheet"/>
 <form th:action="@{/search}" class="search">
     <label for="category">Категория</label>
     <select id="category" name="category">
@@ -21,7 +12,7 @@
     </select>
 
     <label for="search">Запрос</label>
-    <input type="search" name="title" id="search">
+    <input type="search" name="title" id="search" maxlength="255">
 
     <input type="submit" value="Поиск!" class="submit">
 </form>
@@ -50,7 +41,6 @@
 <div th:each="prod : ${productPaginated}" class="product">
     <p class="title"><a th:text="${prod.title}" th:href="@{/products/{id}(id=${prod.id})}"></a></p>
     <p><img th:src="${prod.imageLocation}" height="200"/></p>
-<!--    <p th:text="${prod.categoryName}"></p>-->
     <p th:text="${prod.quantity != 0} ? ${prod.price} : 'Нет в наличии'"></p>
     <p>
     <form method="post" th:action="@{/cart/new/{id}(id=${prod.id})}" th:if="${prod.quantity > 0}">
@@ -67,8 +57,4 @@
     <!--    <span th:unless="${pageNo < totalPages}">След.</span>-->
 </div>
 </body>
-<br>
-<form method="post" th:action="@{/logout}">
-    <input type="submit" value="Выйти">
-</form>
 </html>

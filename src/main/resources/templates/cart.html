@@ -1,36 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Корзина</title>
-    <link rel="icon" href="data:,">
+<head th:replace="fragments/header :: header">
 </head>
 <body>
-
-<button role="button" type="button" onclick="window.location.href='index'">На главную</button>
-<div>
-    Сумма корзины: <span th:text="${totalPrice}"></span>
-</div>
+<link href="../static/css/cart.css" th:href="@{/css/cart.css}" rel="stylesheet"/>
+<button th:if="${cart.size>0}" role="button" type="button" onclick="location.href='/index'" class="main">На главную</button>
+<h2 th:if="${cart.size>0}">Корзина</h2>
+<h2 th:if="${cart.size==0}">Корзина пуста</h2>
+<h3 th:if="${cart.size>0}">Сумма корзины: [[${totalPrice}]]</h3>
 <br>
-<table>
-    <tr>
-        <th>Имя</th>
-        <th>Изображение</th>
-        <th>Категория</th>
-        <th>Цена</th>
-        <th></th>
-    </tr>
-    <tr th:each="cart : ${cart}">
-        <td><a th:text="${cart.title}" th:href="@{/products/{id}(id=${cart.id})}"></a></td>
-        <td><img th:src="${cart.imageLocation}" height="200"/></td>
-        <td th:text="${cart.categoryName}"></td>
-        <td th:text="${cart.price}"></td>
-        <td>
-            <form method="post" th:action="@{/cart/delete/{id}(id=${cart.id})}">
-                <input type="submit" value="Удалить">
-            </form>
-        </td>
-    </tr>
-</table>
+<div th:each="prod : ${cart}" class="product" th:if="${cart.size>0}">
+    <p class="title"><a th:text="${prod.title}" th:href="@{/products/{id}(id=${prod.id})}"></a></p>
+    <p><img th:src="${prod.imageLocation}" height="200"/></p>
+    <p th:text="${prod.price}"></p>
+    <p>
+    <form method="post" th:action="@{/cart/delete/{id}(id=${prod.id})}">
+        <input type="submit" value="Удалить" class="delete">
+    </form>
+</div>
+<button role="button" type="button" onclick="location.href='/index'" class="main">На главную</button>
 </body>
 </html>

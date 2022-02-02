@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Изменение категории</title>
-    <link rel="icon" href="data:,">
+<head th:replace="fragments/header :: header">
 </head>
 <body>
+<link href="../static/css/edit.css" th:href="@{/css/edit.css}" rel="stylesheet"/>
 <form th:action="@{/category/edit/{id}(id=${categoryForm.id})}" th:object="${categoryForm}" method="post">
-    <label for="name">Наименование: </label><br>
-    <input type="text" id="name" name="categoryName" th:field="*{categoryName}" minlength="1" maxlength="32" required><br>
+    <label for="name">Наименование: </label>
+    <input type="text" id="name" name="categoryName" th:field="*{categoryName}" minlength="1" maxlength="32" required><br><br>
 
-    <input type="submit" value="Сохранить">
+    <input type="submit" value="Сохранить" class="save">
 </form>
 </body>
 </html>

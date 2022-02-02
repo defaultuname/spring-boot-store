@@ -1,30 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Новый товар</title>
-    <link rel="icon" href="data:,">
+<head th:replace="fragments/header :: header">
 </head>
 <body>
+<link href="../static/css/edit.css" th:href="@{/css/edit.css}" rel="stylesheet"/>
 <form method="post">
-    <label for="title">Наименование: </label><br>
-    <input type="text" id="title" name="title" minlength="1" maxlength="255" required><br>
+    <label for="title">Наименование: </label>
+    <input type="text" id="title" name="title" minlength="1" maxlength="255" required><br><br>
 
-    <label for="imageLocation">Изображение: </label><br>
-    <input type="text" id="imageLocation" name="imageLocation" maxlength="384"><br>
+    <label for="imageLocation">Изображение: </label>
+    <input type="text" id="imageLocation" name="imageLocation" maxlength="384"><br><br>
 
-    <label for="category">Категория: </label><br>
+    <label for="category">Категория: </label>
     <select id="category" name="category">
         <option th:each="cat: ${categoryList}" th:utext="${cat.categoryName}" th:value="${cat.id}"></option>
-    </select><br>
+    </select><br><br>
 
-    <label for="price">Цена: </label><br>
-    <input type="number" id="price" name="price" min="0" step=".01" required><br>
+    <label for="price">Цена: </label>
+    <input type="number" id="price" name="price" min="0" step=".01" required><br><br>
 
-    <label for="quantity">Количество: </label><br>
-    <input type="number" id="quantity" name="quantity" min="0" step="1" value="0"><br>
+    <label for="quantity">Количество: </label>
+    <input type="number" id="quantity" name="quantity" min="0" step="1" value="0"><br><br>
 
-    <input type="submit" value="Создать">
+    <input type="submit" value="Создать" class="save">
 </form>
 </body>
 </html>

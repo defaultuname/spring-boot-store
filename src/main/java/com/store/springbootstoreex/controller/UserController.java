@@ -3,6 +3,7 @@ package com.store.springbootstoreex.controller;
 import com.store.springbootstoreex.domain.Role;
 import com.store.springbootstoreex.domain.Status;
 import com.store.springbootstoreex.domain.User;
+import com.store.springbootstoreex.exception.UserAlreadyExistsException;
 import com.store.springbootstoreex.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,14 +42,14 @@ public class UserController {
     }
 
     @PostMapping("/new")
-    public String createUser(@Valid @ModelAttribute User user, BindingResult bindingResult) {
+    public String createUser(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             logger.warn("Binding result has error! " + bindingResult.getFieldError());
             return "createUser";
         }
 
-        logger.info("Register new user with email {} to database", user.getEmail());
         userService.saveUser(user);
+        logger.info("Register new user with email {} to database", user.getEmail());
         return "redirect:/admin";
     }
 

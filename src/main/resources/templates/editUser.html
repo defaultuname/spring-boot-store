@@ -1,35 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Изменение пользователя</title>
-    <link rel="icon" href="data:,">
+<head th:replace="fragments/header :: header">
 </head>
 <body>
+<link href="../static/css/edit.css" th:href="@{/css/edit.css}" rel="stylesheet"/>
 <form th:action="@{/users/edit/{id}(id=${userForm.id})}" th:object="${userForm}" method="post">
-    <input type="hidden" id="email" name="email" th:field="*{email}" minlength="1" maxlength="255" required><br>
+    <label for="first">Имя: </label>
+    <input type="text" id="first" name="firstname" th:field="*{firstname}" minlength="1" maxlength="100" required><br><br>
 
-    <label for="first">Имя: </label><br>
-    <input type="text" id="first" name="firstname" th:field="*{firstname}" minlength="1" maxlength="100" required><br>
+    <label for="last">Фамилия: </label>
+    <input type="text" id="last" name="lastname" th:field="*{lastname}" minlength="1" maxlength="100" required><br><br>
 
-    <label for="last">Фамилия: </label><br>
-    <input type="text" id="last" name="lastname" th:field="*{lastname}" minlength="1" maxlength="100" required><br>
-
-    <input type="hidden" id="pass" th:field="*{password}" name="password" required><br>
-
-    <label for="role">Роль: </label><br>
+    <label for="role">Роль: </label>
     <select id="role" name="role">
         <option th:each="roles: ${roles}" th:utext="${roles.name()}"
                 th:field="*{role}" th:value="${roles}"></option>
-    </select><br>
+    </select><br><br>
 
-    <label for="status">Статус: </label><br>
+    <label for="status">Статус: </label>
     <select id="status" name="status">
         <option th:each="stat: ${statuses}" th:utext="${stat.name()}"
                 th:field="*{status}" th:value="${stat}"></option>
-    </select><br>
+    </select><br><br>
 
-    <input type="submit" value="Сохранить">
+    <input type="submit" value="Сохранить" class="save">
+    <input type="hidden" id="pass" th:field="*{password}" name="password" required><br><br>
+    <input type="hidden" id="email" name="email" th:field="*{email}" minlength="1" maxlength="255" required><br><br>
 </form>
 </body>
 </html>

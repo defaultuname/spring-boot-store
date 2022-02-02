@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Ошибка</title>
-    <link rel="icon" href="data:,">
+<head th:replace="fragments/header :: header">
 </head>
 <body>
-<h2>Что-то пошло не по плану! </h2>
+<link href="/static/css/error.css" th:href="@{/css/error.css}" rel="stylesheet"/>
+<h1>Что-то пошло не по плану! </h1>
 <h3>Ошибка 400</h3>
 <button role="button" type="button" onclick="history.back()">Назад</button>
 <button role="button" type="button" onclick="location.href='/index'">На главную</button>
