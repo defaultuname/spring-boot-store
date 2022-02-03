@@ -39,7 +39,7 @@ public class SecurityController {
         } // Добавляем аттрибут с сообщением об ошибке, перенаправляем пользователя обратно на login.html, но уже с аттрибутом
         if (!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
             logger.warn("Error during authorization");
-            model.addAttribute("msg", "Вы уже авторизованы");
+            model.addAttribute("msg", "Вы уже авторизованы"); // Мы не сможем перейти на /login, если уже авторизованы
             return "error/500";
         }
         return "login";
@@ -54,7 +54,7 @@ public class SecurityController {
     public String register(Model model) {
         if (!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
             logger.warn("Error during authorization");
-            model.addAttribute("msg", "Вы уже авторизованы");
+            model.addAttribute("msg", "Вы уже авторизованы"); // Мы не сможем перейти на /register, если уже авторизованы
             return "error/500";
         }
 
