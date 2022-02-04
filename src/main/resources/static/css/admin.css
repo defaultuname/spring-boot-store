@@ -51,8 +51,7 @@ input {
     font-size: 16px;
     font-weight: 600;
     line-height: normal;
-    margin: auto;
-    margin-top: 10px;
+    margin: 10px auto auto;
     outline: none;
     padding:4px 10px;
     text-align: center;

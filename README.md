@@ -1,5 +1,9 @@
 # It's a shop
 ✅ Реализация интернет-магазина на Spring
+<p align="center">
+<img src="src/main/resources/static/index.png" height=60% width=60%>
+<hr>
+
 ### Технологии
 - Java 11 — основа
 - Spring framework (Boot, MVC, Data JPA, Security) — фреймворк
@@ -21,7 +25,7 @@ $ mvn spring-boot:run
 ```
 #### Логин
 Из коробки приложение уже имеет двух пользователей:
-- `admin@mail.com`: `admin`, права `admin`
+- `admin@mail.com` : `admin`, права `admin`
 - `user@mail.com` : `user`, права `user`
 ### Уже реализовано
 - [X] Товары: поиск, изменение, удаление, создание, просмотр. Разделение товаров по категориям
@@ -50,4 +54,16 @@ $ mvn spring-boot:run
 - Картинки в БД хранятся в виде ссылок из интернета. Просто скопируйте ссылку на картинку и вставьте её при создании товара  
   <img src="src/main/resources/static/urlcopy.png" height=30% width=30%>
 - **Все проблемы/баги приложения будут расписываться [здесь](https://github.com/defaultuname/spring-boot-store/issues)**
-
+### Скриншоты
+<p align="center">
+<img src="src/main/resources/static/cart.png" height=60% width=60%>
+<hr>
+<p align="center">
+<img src="src/main/resources/static/product.png" height=60% width=60%>
+<hr>
+<p align="center">
+<img src="src/main/resources/static/admin.png" height=60% width=60%>
+<hr>
+<p align="center">
+<img src="src/main/resources/static/error.png" height=60% width=60%>
+<hr>

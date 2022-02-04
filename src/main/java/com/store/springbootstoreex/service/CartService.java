@@ -35,10 +35,6 @@ public class CartService {
         return cartRepository.findAll();
     }
 
-//    public void deleteCartById(Long id) {
-//        cartRepository.deleteById(id);
-//    }
-
     public Cart getCartByUserId(Long id) {
         return cartRepository.findCartByUserId(id).orElseThrow(() -> new UserNotFoundException(id));
     }
