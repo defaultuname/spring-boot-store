@@ -26,6 +26,7 @@ $ git clone https://github.com/defaultuname/spring-boot-store.git
 ```
 $ mvn clean install
 ```
+**Убедитесь, что используете JDK 11+!**
 
 **Запускаем:**
 
@@ -40,8 +41,9 @@ $ mvn spring-boot:run
 - `admin@mail.com` : `admin`, права `admin`
 - `user@mail.com` : `user`, права `user`
 
-### Docker
+## Docker
 
+Также приложение можно запустить, используя Docker-контейнер.  
 Сперва перейдём в корневой каталог проекта и создадим JAR-файл приложения:
 
 ```
