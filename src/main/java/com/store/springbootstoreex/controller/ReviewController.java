@@ -21,7 +21,6 @@ import javax.validation.Valid;
 @PreAuthorize("hasAuthority('USER')")
 public class ReviewController {
     private final static Logger logger = LoggerFactory.getLogger(ReviewController.class);
-
     private final ReviewService reviewService;
 
     @Autowired
@@ -33,7 +32,7 @@ public class ReviewController {
     public String addComment(@Valid @ModelAttribute Review review, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             logger.warn("Binding result has error! " + bindingResult.getFieldError());
-            model.addAttribute("msg", "Произошла ошибка при добавлении отзыва");
+            model.addAttribute("msg", "An error occurred while adding a review");
             return "error/500";
         }
 

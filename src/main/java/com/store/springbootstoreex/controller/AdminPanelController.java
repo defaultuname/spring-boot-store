@@ -19,10 +19,9 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
-@PreAuthorize("hasAuthority('ADMIN')") // Доступ для пользователей с authority ADMIN
+@PreAuthorize("hasAuthority('ADMIN')")
 public class AdminPanelController {
     private final static Logger logger = LoggerFactory.getLogger(AdminPanelController.class);
-
     private final CategoryService categoryService;
     private final ProductService productService;
     private final UserService userService;

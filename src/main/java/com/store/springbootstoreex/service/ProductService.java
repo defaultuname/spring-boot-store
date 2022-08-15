@@ -12,7 +12,6 @@ import java.util.List;
 
 @Service
 public class ProductService {
-
     private final ProductRepository repository;
     private final CartService cartService;
 
@@ -43,7 +42,7 @@ public class ProductService {
     }                                                                              // отсечь лишние проблемы у запрашиваемого title
 
     public void deleteProductById(Long id) {
-        cartService.getAllCarts().forEach(cart -> cart.getProducts().remove(getProductById(id))); // Перед удалением самого товара мы удаляем его из корзин всех пользователей
+        cartService.getAllCarts().forEach(cart -> cart.getProducts().remove(getProductById(id)));
         repository.deleteById(id);
     }
 }

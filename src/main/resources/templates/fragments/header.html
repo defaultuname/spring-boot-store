@@ -8,7 +8,7 @@
 </head>
 <body>
 <div th:fragment="header" class="header">
-<h2>techno shop project by <a th:text="defuname" href="https://github.com/defaultuname" class="link"></a></h2>
+<h2>techno store project by <a th:text="defuname" href="https://github.com/defaultuname" class="link"></a></h2>
 <button sec:authorize="hasAuthority('ADMIN')" role="button" type="button" onclick="location.href='/admin'">
     Админ-панель  <!--  Кнопка видна только для юзеров с authority ADMIN  -->
 </button>

@@ -22,7 +22,6 @@ import java.math.BigDecimal;
 @PreAuthorize("hasAuthority('USER')")
 public class CartController {
     private final static Logger logger = LoggerFactory.getLogger(CartController.class);
-
     private final ProductService productService;
     private final CartService cartService;
 
@@ -33,7 +32,7 @@ public class CartController {
     }
 
     @GetMapping
-    public String cartView(Model model) { // Метод отвечает за показ самой корзины
+    public String cartView(Model model) {
         Cart cart = cartService.getLoggedUserCart();
         BigDecimal totalPrice = cartService.getTotalPriceCart();
 
@@ -46,7 +45,7 @@ public class CartController {
 
     @PostMapping("/new/{id}")
     public String addProdToCart(@PathVariable("id") Long id) {
-        Product product = productService.getProductById(id); // Получем желаемый продукт по id и кладём в корзину
+        Product product = productService.getProductById(id);
         cartService.addProductToCart(product);
 
         logger.info("Add product with id {} to cart", product.getId());
@@ -55,7 +54,7 @@ public class CartController {
 
     @PostMapping("/delete/{id}")
     public String deleteProductFromCart(@PathVariable("id") Long id) {
-        Product product = productService.getProductById(id); // Получем желаемый продукт по id и удаляем из корзины
+        Product product = productService.getProductById(id);
         cartService.deleteProductFromCart(product);
 
         logger.info("Delete product with id {} from cart", product.getId());

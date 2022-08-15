@@ -18,7 +18,7 @@ public enum Role {
         return roles;
     }
 
-    public Set<SimpleGrantedAuthority> getGrantedAuthorities() { // Маппим роли в granted authorities
+    public Set<SimpleGrantedAuthority> getGrantedAuthorities() {
         return getRoles().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
     }
 }

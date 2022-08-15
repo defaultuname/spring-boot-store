@@ -13,7 +13,6 @@ import java.util.List;
 
 @Service
 public class CartService {
-
     private final CartRepository cartRepository;
     private final UserService userService;
 
@@ -39,10 +38,10 @@ public class CartService {
         return cartRepository.findCartByUserId(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 
-    public BigDecimal getTotalPriceCart() { // Получение итоговой цены корзины реализовано силами Stream API
+    public BigDecimal getTotalPriceCart() {
         return getLoggedUserCart().getProducts().stream()
-                .map(Product::getPrice)                    // Получаем сведения о цене каждого товара
-                .reduce(BigDecimal.ZERO, BigDecimal::add); // и суммируем их, отталкиваясь от цены пустой корзины - нуля
+                .map(Product::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public Cart getLoggedUserCart() {
@@ -50,12 +49,12 @@ public class CartService {
     }
 
     public void addProductToCart(Product product) {
-        getLoggedUserCart().getProducts().add(product); // Получаем список товаров из корзины пользователя, добавляем туда товар
-        cartRepository.save(getLoggedUserCart()); // и сохраняем изменённую информацию
+        getLoggedUserCart().getProducts().add(product);
+        cartRepository.save(getLoggedUserCart());
     }
 
     public void deleteProductFromCart(Product product) {
-        getLoggedUserCart().getProducts().remove(product); // Получаем список товаров из корзины пользователя, удаляем оттуда товар
-        cartRepository.save(getLoggedUserCart()); // и сохраняем изменённую информацию
+        getLoggedUserCart().getProducts().remove(product);
+        cartRepository.save(getLoggedUserCart());
     }
 }

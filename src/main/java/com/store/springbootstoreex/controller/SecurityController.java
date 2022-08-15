@@ -17,13 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
-/*
-    Контроллер отвечает за секьюрити: авторизация и регистрация
- */
 @Controller
 public class SecurityController {
     private final static Logger logger = LoggerFactory.getLogger(SecurityController.class);
-
     private final UserService userService;
 
     @Autowired
@@ -33,13 +29,13 @@ public class SecurityController {
 
     @GetMapping("/login")
     public String login(@RequestParam(value = "error", required = false) Boolean error, Model model) {
-        if (error != null) { // Если пользователь сделал что-то не так при попытке логина, мы получим параметр error
+        if (error != null) {
             logger.warn("Error during authorization");
-            model.addAttribute("msg", "Неверный email или пароль, либо такой аккаунт не существует");
-        } // Добавляем аттрибут с сообщением об ошибке, перенаправляем пользователя обратно на login.html, но уже с аттрибутом
+            model.addAttribute("msg", "Invalid email address or password, or this account does not exist");
+        }
         if (!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
             logger.warn("Error during authorization");
-            model.addAttribute("msg", "Вы уже авторизованы"); // Мы не сможем перейти на /login, если уже авторизованы
+            model.addAttribute("msg", "You are already logged in");
             return "error/500";
         }
         return "login";
@@ -47,14 +43,14 @@ public class SecurityController {
 
     @PostMapping("/logout")
     public String logout() {
-        return "redirect:/login"; // При логауте перекидываем пользователя на login.html
+        return "redirect:/login";
     }
 
     @GetMapping("/register")
     public String register(Model model) {
         if (!(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
             logger.warn("Error during authorization");
-            model.addAttribute("msg", "Вы уже авторизованы"); // Мы не сможем перейти на /register, если уже авторизованы
+            model.addAttribute("msg", "Вы уже авторизованы");
             return "error/500";
         }
 
@@ -68,7 +64,7 @@ public class SecurityController {
             return "register";
         }
 
-        userService.saveUser(user); // При регистрации сохраняем нового юзера в БД
+        userService.saveUser(user);
         logger.info("Register new user with email {} to database", user.getEmail());
         return "redirect:/login";
     }

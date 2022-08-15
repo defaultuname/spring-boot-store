@@ -22,7 +22,6 @@ import java.util.List;
 @PreAuthorize("hasAuthority('ADMIN')")
 public class ProductController {
     private final static Logger logger = LoggerFactory.getLogger(ProductController.class);
-
     private final CategoryService categoryService;
     private final ProductService productService;
     private final ReviewService reviewService;
@@ -36,8 +35,8 @@ public class ProductController {
 
     @GetMapping("/new")
     public String createProduct(Model model) {
-        List<Category> categoryList = categoryService.getAllCategories(); // Получаем список всех категорий,
-        model.addAttribute("categoryList", categoryList);     // чтобы присвоить одну из них будущему продукту
+        List<Category> categoryList = categoryService.getAllCategories();
+        model.addAttribute("categoryList", categoryList);
         return "createProd";
     }
 
@@ -56,8 +55,8 @@ public class ProductController {
     @GetMapping("/edit/{id}")
     public String editProduct(@PathVariable("id") Long id, Model model) {
         Product product = productService.getProductById(id);
-        List<Category> categoryList = categoryService.getAllCategories(); // Получаем список всех категорий, чтобы изменить
-                                                                          // её у продукта
+        List<Category> categoryList = categoryService.getAllCategories();
+
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("productForm", product);
 
@@ -85,10 +84,10 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('USER')") // Получение информации о товаре могут выполнить и обычные пользователи
-    public String getOneProduct(@PathVariable("id") Long id, Model model) { // Также на странице есть возможность оставлять и просматривать отзывы
+    @PreAuthorize("hasAuthority('USER')")
+    public String getOneProduct(@PathVariable("id") Long id, Model model) {
         model.addAttribute("product", productService.getProductById(id));
-        model.addAttribute("reviews", reviewService.getReviewsByProductId(id)); // Получаем отзывы о конкретном товаре
+        model.addAttribute("reviews", reviewService.getReviewsByProductId(id));
         logger.info("Get product with id {} and it reviews from database", id);
         return "product";
     }

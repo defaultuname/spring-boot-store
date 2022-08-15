@@ -14,7 +14,6 @@ import java.util.List;
 
 @Service
 public class UserService {
-
     private final UserRepository userRepository;
 
     @Autowired
@@ -26,25 +25,21 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 
-//    public User getUserByEmail(String email) {
-//        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(email));
-//    }
-
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public User getLoggedUser() { // Получение залогиненного юзера
-        String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName(); // Получаем из сессии эл. почту юзера
+    public User getLoggedUser() {
+        String loggedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
         return userRepository.findByEmail(loggedUserEmail).orElseThrow(() -> new UsernameNotFoundException(loggedUserEmail));
     }
 
     public void saveUser(User user) {
         userRepository.findByEmail(user.getEmail().toLowerCase()).ifPresent(s -> {
             throw new UserAlreadyExistsException(user.getEmail());
-        }); // Перед сохранением нового пользователя проверяем, не существует ли уже пользователь с такой эл. почтой
+        });
 
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword())); // И кодируем его пароль через BCrypt
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userRepository.save(user);
     }
 

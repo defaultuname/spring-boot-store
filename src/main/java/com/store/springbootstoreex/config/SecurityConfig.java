@@ -32,24 +32,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .authorizeRequests() // Все реквесты должны быть авторизованы
-                .antMatchers("/", "/register", "/error", "/login", "/css/**").permitAll() // Данные URL доступны без авторизации
-                .antMatchers("/h2-console/**").hasAuthority(Role.ADMIN.name()) // Доступ к БД только админам
-                .anyRequest().authenticated() // Проверка прав
+                .authorizeRequests()
+                .antMatchers("/", "/register", "/error", "/login", "/css/**").permitAll()
+                .antMatchers("/h2-console/**").hasAuthority(Role.ADMIN.name())
+                .anyRequest().authenticated()
                 .and()
                 .headers().frameOptions().sameOrigin()
                 .and()
                 .formLogin()
-                .loginPage("/login").permitAll() // Логин-страница. Доступна для всех
-                .defaultSuccessUrl("/index", true) // Если логин успешный, переходим на /index
-                .failureUrl("/login?error=true") // Если нет — остаёмся на /login + добавляем параметр error
+                .loginPage("/login").permitAll()
+                .defaultSuccessUrl("/index", true)
+                .failureUrl("/login?error=true")
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST")) // Логаут происходит через POSt-метод
-                .invalidateHttpSession(true) // Инвалидируем сессию после логаута
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST"))
+                .invalidateHttpSession(true)
                 .clearAuthentication(true)
-                .deleteCookies("JSESSIONID") // Чистим куки
-                .logoutSuccessUrl("/login"); // И при успешном логауте переходим на /login
+                .deleteCookies("JSESSIONID")
+                .logoutSuccessUrl("/login");
     }
 
     @Override

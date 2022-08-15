@@ -21,7 +21,6 @@ import java.util.List;
 @PreAuthorize("hasAuthority('ADMIN')")
 public class UserController {
     private final static Logger logger = LoggerFactory.getLogger(UserController.class);
-
     private final UserService userService;
 
     @Autowired
@@ -29,13 +28,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/new") // Админ может самостоятельно создавать (регистрировать) юзеров
-    public String createUser(Model model) {        // Создание нового пользователя. Отличается от обычной регистрации тем,
-        List<Role> roles = List.of(Role.values()); // что админ при создании может указать пользователю конкретные статус и роль
+    @GetMapping("/new")
+    public String createUser(Model model) {
+        List<Role> roles = List.of(Role.values());
         List<Status> statuses = List.of(Status.values());
 
-        model.addAttribute("roles", roles);       // Отправим на createUser.html список всех ролей и статусов, чтобы
-        model.addAttribute("statuses", statuses); // админ смог их задать новому юзеру
+        model.addAttribute("roles", roles);
+        model.addAttribute("statuses", statuses);
 
         return "createUser";
     }
@@ -55,8 +54,8 @@ public class UserController {
     @GetMapping("/edit/{id}")
     public String editUser(@PathVariable("id") Long id, Model model) {
         User user = userService.getUserById(id);
-        List<Role> roles = List.of(Role.values());        // Отправим на editUser.html список всех ролей и статусов, чтобы
-        List<Status> statuses = List.of(Status.values()); // админ мог при желании поменять их юзеру
+        List<Role> roles = List.of(Role.values());
+        List<Status> statuses = List.of(Status.values());
 
         model.addAttribute("userForm", user);
         model.addAttribute("roles", roles);

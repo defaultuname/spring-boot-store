@@ -12,15 +12,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-/*
-    Контроллер отвечает за управление категориями товаров
- */
+
 @Controller
 @RequestMapping("/category")
 @PreAuthorize("hasAuthority('ADMIN')")
 public class CategoryController {
     private final static Logger logger = LoggerFactory.getLogger(CategoryController.class);
-
     private final CategoryService categoryService;
 
     @Autowired

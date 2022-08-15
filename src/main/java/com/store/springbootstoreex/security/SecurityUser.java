@@ -8,9 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-/*
-    Служебный класс для Spring Security.
- */
+
 public class SecurityUser implements UserDetails {
 
     private User user;
@@ -56,7 +54,7 @@ public class SecurityUser implements UserDetails {
         return user.isActive();
     }
 
-    public static UserDetails userConvert(User user) { // Метод-конвентер для юзеров. Получаем информацию о пользователе и создаём с ней юзера для UserDetails
+    public static UserDetails userConvert(User user) {
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(), user.getPassword(),
                 user.getStatus().equals(Status.ACTIVE),

@@ -10,7 +10,6 @@ import java.util.List;
 
 @Service
 public class ReviewService {
-
     private final ReviewRepository reviewRepository;
     private final UserService userService;
 
@@ -21,7 +20,7 @@ public class ReviewService {
     }
 
     public void saveReview(Review review) {
-        review.setAuthor(userService.getLoggedUser()); // Чтобы указать автора отзыва, получим его из сессии
+        review.setAuthor(userService.getLoggedUser());
         reviewRepository.save(review);
     }
 

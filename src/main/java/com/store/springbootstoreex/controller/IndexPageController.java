@@ -14,15 +14,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-/*
-    Контроллер отвечает за домашнюю страницу приложения.
- */
-@Controller
-@PreAuthorize("hasAuthority('USER')") // Spring Security: доступен для авторизованных пользователей с authority USER
-public class IndexPageController {
 
+@Controller
+@PreAuthorize("hasAuthority('USER')")
+public class IndexPageController {
     private final ProductService productService;
     private final CategoryService categoryService;
+    private final int PRODUCTS_COUNT_PER_PAGE = 3;
 
     @Autowired
     public IndexPageController(ProductService productService, CategoryService categoryService) {
@@ -32,7 +30,7 @@ public class IndexPageController {
 
     @GetMapping({"/index", "/"})
     public String homepage(Model model) {
-        viewPaginated(1, model); // 1 - стартовая страница пагинации
+        viewPaginated(1, model);
         return "index";
     }
 
@@ -44,14 +42,14 @@ public class IndexPageController {
     }
 
     @GetMapping("/{pageNo}")
-    public String viewPaginated(@PathVariable("pageNo") int page, Model model) { // Метод инкапсулирует логику, отвечающую за пагинацию
+    public String viewPaginated(@PathVariable("pageNo") int page, Model model) {
         List<Category> categoryList = categoryService.getAllCategories();
-        Page<Product> paginatedProducts = productService.getPaginatedProducts(page, 3); // pageSize - количество сущностей на одной странице
-        List<Product> productList = paginatedProducts.getContent(); // Лист сущностей с одной страницы
+        Page<Product> paginatedData = productService.getPaginatedProducts(page, PRODUCTS_COUNT_PER_PAGE);
+        List<Product> productListFromPage = paginatedData.getContent();
 
-        model.addAttribute("pageNo", page); // Номер страницы
-        model.addAttribute("totalPages", paginatedProducts.getTotalPages()); // Количество страниц
-        model.addAttribute("productPaginated", productList);
+        model.addAttribute("pageNo", page);
+        model.addAttribute("totalPages", paginatedData.getTotalPages());
+        model.addAttribute("productPaginated", productListFromPage);
         model.addAttribute("categoryList", categoryList);
 
         return "index";
