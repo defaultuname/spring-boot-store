@@ -8,7 +8,7 @@
         <version>2.7.2</version>
         <relativePath/>
     </parent>
-    <groupId>com.store</groupId>
+    <groupId>com.defuname</groupId>
     <artifactId>spring-boot-store-ex</artifactId>
     <version>1.0.1</version>
     <name>spring-boot-store-ex</name>
