@@ -7,11 +7,11 @@
 
 ### Технологии
 
-- Java 11 — основа
-- Spring framework (Boot, MVC, Data JPA, Security) — фреймворк
-- JUnit (Jupiter) + Mockito — тестирование
+- Java 11
+- Spring framework (Boot, MVC, Data JPA, Security)
+- JUnit (Jupiter) + Mockito
 - H2 — БД *(in-memory mode)*
-- Thymeleaf + CSS — фронт
+- Thymeleaf + HTML/CSS
 
 ## Установка
 
@@ -80,7 +80,7 @@ $ docker stop store-ex
 - [X] Пагинация
 - [X] Стилизация
 - [X] Error handling
-- [X] Тесты & логгирование
+- [X] Тесты & логирование
 
 ### В планах
 
